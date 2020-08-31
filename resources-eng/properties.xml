@@ -1,0 +1,13 @@
+<resources>
+    <properties>
+    	<property id="refreshInterval" type="number">300</property>    	
+    </properties>
+    
+       <settings>
+        <setting propertyKey="refreshInterval" title="refreshIntervalTitle">
+            <settingConfig type="numeric" min="300" max ="3600" />
+		</setting>
+		
+	</settings>
+	
+</resources>    

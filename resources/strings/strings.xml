@@ -1,0 +1,6 @@
+<strings>
+    <string id="AppName">AirQualityIndex</string>
+
+    <string id="label">AQI (PM 2.5)</string>
+    <string id="refreshIntervalTitle">Refresh Interval</string>
+</strings>
