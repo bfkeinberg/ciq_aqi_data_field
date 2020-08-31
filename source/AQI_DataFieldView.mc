@@ -71,7 +71,7 @@ class AQI_DataFieldView extends WatchUi.DataField {
             value.setColor(Graphics.COLOR_BLACK);
             label.setColor(Graphics.COLOR_BLACK);
         }
-        if (aqiValue != null) {
+        if (aqiValue != null && aqiValue.hasKey(particulateValue)) {
         	value.setText(aqiValue.get(particulateValue).toString());
     	} else {
     		value.setText("N/A");

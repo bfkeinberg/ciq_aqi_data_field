@@ -11,11 +11,11 @@ var aqiData = null;
 
 class AQI_DataFieldApp extends Application.AppBase {
 
-	var inBackground = false;
-	var myKey="aqidata";
+	var myKey = "aqidata";
 	const intervalKey = "refreshInterval";
 	const bgIntervalDefault = 5 * 60;
 	var bgInterval;
+	var viewCreated = false;
 	
     function initialize() {
         AppBase.initialize();
@@ -38,20 +38,19 @@ class AQI_DataFieldApp extends Application.AppBase {
 
     //! Return the initial view of your application here
     function getInitialView() {
-//        Application.Storage.setValue("aqidata", {"PM2.5" => 77, "O3" => 12});
 		Application.Properties.setValue(intervalKey, bgInterval);
 		//register for temporal events if they are supported
     	if(Toybox.System has :ServiceDelegate) {
     		Background.registerForTemporalEvent(new Time.Duration(bgInterval));
     	} else {
     		System.println("****background not available on this device****");
-    	}    
+    	}
+    	viewCreated = true;
         return [ new AQI_DataFieldView() ];
     }
     
     function getServiceDelegate(){
     	//only called in the background	
-    	inBackground = true;
         return [new AQIServiceDelgate()];
     }
     
@@ -62,7 +61,9 @@ class AQI_DataFieldApp extends Application.AppBase {
         System.println("onBackgroundData="+data+" at "+ts);
         aqiData = data;
         Application.Storage.setValue(myKey, aqiData);
-        WatchUi.requestUpdate();
+        if (viewCreated) {
+        	WatchUi.requestUpdate();
+    	}
     }     
 
 }
