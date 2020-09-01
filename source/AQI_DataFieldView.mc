@@ -1,15 +1,19 @@
 using Toybox.WatchUi;
 using Toybox.Graphics;
+using Toybox.Attention;
 
 class AQI_DataFieldView extends WatchUi.DataField {
 
     hidden var aqiValue;
     const particulateValue = "PM2.5";
     const ozoneValue = "O3";
+	var enableNotifications = false;
+	var notified = false;
 
-    function initialize() {
+    function initialize(notifications) {
         DataField.initialize();
         aqiValue = null;
+        enableNotifications = notifications;
     }
 
     // Set your layout here. Anytime the size of obscurity of
@@ -64,18 +68,63 @@ class AQI_DataFieldView extends WatchUi.DataField {
 
         // Set the foreground color and value
         var value = View.findDrawableById("value");
-        if (getBackgroundColor() == Graphics.COLOR_BLACK) {
-            value.setColor(Graphics.COLOR_WHITE);
+        var currentAqi = null;
+        if (aqiValue != null && aqiValue.hasKey(particulateValue)) {
+        	currentAqi = aqiValue.get(particulateValue);
+        	value.setText(currentAqi.toString());
+    	} else {
+    		value.setText("N/A");
+		}
+		if (currentAqi != null && getBackgroundColor() == Graphics.COLOR_WHITE) {
+			if (aqiValue != null && aqiValue.hasKey("error")) {
+				value.setColor(Graphics.COLOR_LT_GRAY);
+				notified = false;
+			}
+			else if (currentAqi < 51) {
+				value.setColor(Graphics.COLOR_GREEN);
+				notified = false;
+			}
+			else if (currentAqi < 101) {
+				value.setColor(Graphics.COLOR_YELLOW);
+				notified = false;
+			}
+			else {
+				value.setColor(Graphics.COLOR_DK_RED);
+				// potentially alert here
+				if (Attention has :playTone && enableNotifications && !notified) {
+					Attention.playTone(Attention.TONE_CANARY);
+					notified = true;
+				} 
+			}
+            label.setColor(Graphics.COLOR_BLACK);
+		}
+        else if (getBackgroundColor() == Graphics.COLOR_BLACK) {
+            value.setColor(Graphics.COLOR_WHITE);        	
+			if (aqiValue != null && aqiValue.hasKey("error")) {
+				value.setColor(Graphics.COLOR_LT_GRAY);
+				notified = false;
+			}
+			else if (currentAqi < 51) {
+				value.setColor(Graphics.COLOR_GREEN);
+				notified = false;
+			}
+			else if (currentAqi < 101) {
+				value.setColor(Graphics.COLOR_YELLOW);
+				notified = false;
+			}
+			else {
+				value.setColor(Graphics.COLOR_RED);
+				// potentially alert here
+				if (Attention has :playTone && enableNotifications && !notified) {
+					Attention.playTone(Attention.TONE_CANARY);
+					notified = true;
+				} 
+			}
             label.setColor(Graphics.COLOR_WHITE);
         } else {
             value.setColor(Graphics.COLOR_BLACK);
             label.setColor(Graphics.COLOR_BLACK);
         }
-        if (aqiValue != null && aqiValue.hasKey(particulateValue)) {
-        	value.setText(aqiValue.get(particulateValue).toString());
-    	} else {
-    		value.setText("N/A");
-		}
 
         // Call parent's onUpdate(dc) to redraw the layout
         View.onUpdate(dc);

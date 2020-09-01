@@ -1,4 +1,3 @@
-using Toybox.Application;
 using Toybox.System;
 using Toybox.Background;
 using Toybox.Communications;
@@ -8,9 +7,12 @@ using Toybox.Time;
 
 (:background)
 class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
-  function initialize() {
-  	ServiceDelegate.initialize();   
-  }
+	var bgInterval;
+	
+	  function initialize(interval) {
+	  	ServiceDelegate.initialize();
+	  	bgInterval = interval;
+	  }
 
 	function onTemporalEvent() {
     	var now=Toybox.System.getClockTime();	
@@ -25,8 +27,10 @@ class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
 			var coords = position.position;
 			if (coords != null) {
 				var positionInDegrees = coords.toDegrees();
-				System.println("Latitude " + positionInDegrees[0] + " longitude " + positionInDegrees[1]);
-				makeRequest(positionInDegrees[0], positionInDegrees[1]);
+				if (positionInDegrees != null) {
+					System.println("Latitude " + positionInDegrees[0] + " longitude " + positionInDegrees[1]);
+					makeRequest(positionInDegrees[0], positionInDegrees[1]);
+				}
 			}
 		}
 	}
@@ -40,7 +44,9 @@ class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
        }
        else {
            System.println("Response: " + responseCode + " data " + data);            // print response code
+           aqi = { "error" => responseCode };
        }
+	   Background.registerForTemporalEvent(new Time.Duration(bgInterval));       
        Background.exit(aqi);
    }
 

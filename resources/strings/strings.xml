@@ -3,4 +3,5 @@
 
     <string id="label">AQI (PM 2.5)</string>
     <string id="refreshIntervalTitle">Refresh Interval in seconds</string>
+	<string id="enableNotificationsTitle">Notify on poor air quality</string>    
 </strings>

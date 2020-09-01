@@ -1,13 +1,16 @@
 <resources>
     <properties>
-    	<property id="refreshInterval" type="number">900</property>    	
+    	<property id="refreshInterval" type="number">900</property>
+    	<property id="enableNotifications" type="boolean">false</property>
     </properties>
     
        <settings>
-        <setting propertyKey="refreshInterval" title="refreshIntervalTitle">
+        <setting propertyKey="@Properties.refreshInterval" title="@Strings.refreshIntervalTitle">
             <settingConfig type="numeric" min="300" max ="3600" />
 		</setting>
-		
+        <setting propertyKey="@Properties.enableNotifications" title="@Strings.enableNotificationsTitle">
+            <settingConfig type="boolean" />
+		</setting>				
 	</settings>
 	
 </resources>    
