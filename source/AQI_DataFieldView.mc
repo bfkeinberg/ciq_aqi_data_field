@@ -88,9 +88,19 @@ class AQI_DataFieldView extends WatchUi.DataField {
 				value.setColor(Graphics.COLOR_YELLOW);
 				notified = false;
 			}
-			else {
+			else if (currentAqi < 151) {
+				value.setColor(Graphics.COLOR_ORANGE);
+				notified = false;
+			}
+			else if (currentAqi < 201) {
 				value.setColor(Graphics.COLOR_DK_RED);
-				// potentially alert here
+				if (Attention has :playTone && enableNotifications && !notified) {
+					Attention.playTone(Attention.TONE_CANARY);
+					notified = true;
+				} 
+			}
+			else {
+				value.setColor(Graphics.COLOR_PURPLE);
 				if (Attention has :playTone && enableNotifications && !notified) {
 					Attention.playTone(Attention.TONE_CANARY);
 					notified = true;
@@ -112,9 +122,19 @@ class AQI_DataFieldView extends WatchUi.DataField {
 				value.setColor(Graphics.COLOR_YELLOW);
 				notified = false;
 			}
-			else {
+			else if (currentAqi < 151) {
+				value.setColor(Graphics.COLOR_ORANGE);
+				notified = false;
+			}
+			else if (currentAqi < 201) {
 				value.setColor(Graphics.COLOR_RED);
-				// potentially alert here
+				if (Attention has :playTone && enableNotifications && !notified) {
+					Attention.playTone(Attention.TONE_CANARY);
+					notified = true;
+				} 
+			}
+			else {
+				value.setColor(Graphics.COLOR_PURPLE);
 				if (Attention has :playTone && enableNotifications && !notified) {
 					Attention.playTone(Attention.TONE_CANARY);
 					notified = true;
