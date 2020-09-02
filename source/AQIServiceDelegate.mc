@@ -55,7 +55,8 @@ class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
 
        var params = {                                              // set the parameters
               "lat" => latitude,
-              "lon" => longitude
+              "lon" => longitude,
+              "sysId" => System.getDeviceSettings().uniqueIdentifier
        };
 
        var options = {                                             // set the options
