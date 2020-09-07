@@ -1,6 +1,7 @@
 using Toybox.WatchUi;
 using Toybox.Graphics;
 using Toybox.Attention;
+using Toybox.System;
 
 class AQI_DataFieldView extends WatchUi.DataField {
 
@@ -9,6 +10,7 @@ class AQI_DataFieldView extends WatchUi.DataField {
     const ozoneValue = "O3";
 	var enableNotifications = false;
 	var notified = false;
+	var displayPm2_5 = true;
 
     function initialize(notifications) {
         DataField.initialize();
@@ -46,7 +48,7 @@ class AQI_DataFieldView extends WatchUi.DataField {
             valueView.locY = valueView.locY + 7;
         }
 
-        View.findDrawableById("label").setText(Rez.Strings.label);
+        View.findDrawableById("label").setText(displayPm2_5 ? Rez.Strings.label : Rez.Strings.ozoneLabel);
         return true;
     }
 
@@ -69,8 +71,10 @@ class AQI_DataFieldView extends WatchUi.DataField {
         // Set the foreground color and value
         var value = View.findDrawableById("value");
         var currentAqi = null;
-        if (aqiValue != null && aqiValue.hasKey(particulateValue)) {
-        	currentAqi = aqiValue.get(particulateValue);
+        label.setText(displayPm2_5 ? Rez.Strings.label : Rez.Strings.ozoneLabel);
+		var selectedValue = displayPm2_5 ? particulateValue : ozoneValue;
+        if (aqiValue != null && aqiValue.hasKey(selectedValue)) {
+        	currentAqi = aqiValue.get(selectedValue);
         	value.setText(currentAqi.toString());
     	} else {
     		value.setText("N/A");

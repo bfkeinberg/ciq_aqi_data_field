@@ -16,7 +16,6 @@ class AQI_DataFieldApp extends Application.AppBase {
 	const bgIntervalDefault = 5 * 60;
 	var bgInterval;
 	var enableNotifications = false;
-	var viewCreated = false;
 	var inBackground = false;
 	
     function initialize() {
@@ -45,6 +44,8 @@ class AQI_DataFieldApp extends Application.AppBase {
 
     //! Return the initial view of your application here
     function getInitialView() {
+    	var view;
+    	
 		Application.Properties.setValue(intervalKey, bgInterval);
 		//register for temporal events if they are supported
     	if(Toybox.System has :ServiceDelegate) {
@@ -52,8 +53,8 @@ class AQI_DataFieldApp extends Application.AppBase {
     	} else {
     		System.println("****background not available on this device****");
     	}
-    	viewCreated = true;
-        return [ new AQI_DataFieldView(enableNotifications), new TouchDelegate() ];
+    	view = new AQI_DataFieldView(enableNotifications);
+        return [ view, new TouchDelegate(view) ];
     }
     
     function getServiceDelegate(){
@@ -69,8 +70,10 @@ class AQI_DataFieldApp extends Application.AppBase {
         if (data != null) {
         	if (data.hasKey("PM2.5")) {
         		aqiData = data;
-    		} else {
+    		} else if (data.hasKey("error")) {
     			aqiData.put("error", data.get("error"));
+			} else {
+				aqiData.put("error", "No data available");
 			}
 			if (Application has :Storage) {
         		Application.Storage.setValue(myKey, aqiData);
