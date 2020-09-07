@@ -2,7 +2,7 @@
     <string id="AppName">AirQualityIndex</string>
 
     <string id="label">AQI (PM 2.5)</string>
-    <string id="ozoneLabel">O3</string>
+    <string id="ozoneLabel">Ozone</string>
     <string id="refreshIntervalTitle">Refresh Interval in seconds</string>
 	<string id="enableNotificationsTitle">Notify on poor air quality</string>    
 </strings>
