@@ -85,7 +85,7 @@ class AQI_DataFieldView extends WatchUi.DataField {
 				notified = false;
 			}
 			else if (currentAqi < 51) {
-				value.setColor(Graphics.COLOR_GREEN);
+				value.setColor(Graphics.COLOR_DK_GREEN);
 				notified = false;
 			}
 			else if (currentAqi < 101) {
@@ -119,7 +119,7 @@ class AQI_DataFieldView extends WatchUi.DataField {
 				notified = false;
 			}
 			else if (currentAqi < 51) {
-				value.setColor(Graphics.COLOR_GREEN);
+				value.setColor(0x00FE00/*Graphics.COLOR_GREEN*/);
 				notified = false;
 			}
 			else if (currentAqi < 101) {
