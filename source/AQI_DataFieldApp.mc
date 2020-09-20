@@ -3,10 +3,12 @@ using Toybox.System;
 using Toybox.Time;
 using Toybox.Background;
 using Toybox.WatchUi;
+using Toybox.FitContributor;
 
 using Toybox.Position;
 
 var aqiData = null;
+var aqiField = null;
 
 class AQI_DataFieldApp extends Application.AppBase {
 
@@ -69,6 +71,9 @@ class AQI_DataFieldApp extends Application.AppBase {
         System.println("onBackgroundData=" + data + " at " + ts);
         if (data != null) {
         	if (data.hasKey("PM2.5")) {
+        		if (aqiData == null || aqiData["PM2.5"] != data["PM2.5"]) {
+					aqiField.setData(data["PM2.5"]);
+        		}
         		aqiData = data;
     		} else if (data.hasKey("error")) {
     			aqiData.put("error", data.get("error"));

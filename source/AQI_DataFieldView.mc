@@ -11,11 +11,14 @@ class AQI_DataFieldView extends WatchUi.DataField {
 	var enableNotifications = false;
 	var notified = false;
 	var displayPm2_5 = true;
+	const AQI_FIELD_ID = 0;
 
     function initialize(notifications) {
         DataField.initialize();
         aqiValue = null;
         enableNotifications = notifications;
+	  	aqiField = createField("AQI", AQI_FIELD_ID, FitContributor.DATA_TYPE_UINT32,
+	  		{:mesgType=>FitContributor.MESG_TYPE_RECORD, :units=>"PM2.5"});
     }
 
     // Set your layout here. Anytime the size of obscurity of
