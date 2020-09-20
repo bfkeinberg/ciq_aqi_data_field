@@ -1,7 +1,8 @@
 <resources>
     <properties>
     	<property id="refreshInterval" type="number">1200</property>
-    	<property id="enableNotifications" type="boolean">false</property>
+    	<property id="enableNotifications" type="boolean">true</property>
+    	<property id="aqiProvider" type="number">1</property>
     </properties>
     
        <settings>
@@ -11,6 +12,12 @@
         <setting propertyKey="@Properties.enableNotifications" title="@Strings.enableNotificationsTitle">
             <settingConfig type="boolean" />
 		</setting>				
+		<setting propertyKey="@Properties.aqiProvider" title="@Strings.aqiProviderTitle">
+			<settingConfig type="list">
+				<listEntry value="1">@Strings.AirNow</listEntry>
+				<listEntry value="2">@Strings.PurpleAir</listEntry>
+			</settingConfig>
+		</setting>
 	</settings>
 	
 </resources>    

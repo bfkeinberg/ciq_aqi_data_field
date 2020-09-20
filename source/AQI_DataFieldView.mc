@@ -2,6 +2,7 @@ using Toybox.WatchUi;
 using Toybox.Graphics;
 using Toybox.Attention;
 using Toybox.System;
+using Toybox.FitContributor;
 
 class AQI_DataFieldView extends WatchUi.DataField {
 
@@ -74,6 +75,15 @@ class AQI_DataFieldView extends WatchUi.DataField {
         // Set the foreground color and value
         var value = View.findDrawableById("value");
         var currentAqi = null;
+        // if the user has toggled to display ozone but we don't have a value for it in the results
+        // switch back to displaying PM 2.5
+        if (aqiValue != null) {
+        	if (!displayPm2_5) {
+		        if (!aqiValue.hasKey(ozoneValue) || aqiValue.get(ozoneValue) == null) {
+		        	displayPm2_5 = true;
+		    	}
+	    	}
+    	}
         label.setText(displayPm2_5 ? Rez.Strings.label : Rez.Strings.ozoneLabel);
 		var selectedValue = displayPm2_5 ? particulateValue : ozoneValue;
         if (aqiValue != null && aqiValue.hasKey(selectedValue)) {

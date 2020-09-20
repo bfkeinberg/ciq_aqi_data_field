@@ -19,6 +19,7 @@ class AQI_DataFieldApp extends Application.AppBase {
 	var bgInterval;
 	var enableNotifications = false;
 	var inBackground = false;
+	var aqiProvider = 1;
 	
     function initialize() {
         AppBase.initialize();
@@ -27,6 +28,7 @@ class AQI_DataFieldApp extends Application.AppBase {
 	        aqiData = Application.Storage.getValue(myKey);
 	        bgInterval = Application.Properties.getValue(intervalKey);
 	        enableNotifications = Application.Properties.getValue(enableNotificationsKey);
+	        aqiProvider = Application.Properties.getValue("aqiProvider");
         }
         if (bgInterval == null) {
         	bgInterval = bgIntervalDefault;
@@ -62,7 +64,7 @@ class AQI_DataFieldApp extends Application.AppBase {
     function getServiceDelegate(){
     	//only called in the background	
     	inBackground = true;
-        return [new AQIServiceDelgate(bgInterval)];
+        return [new AQIServiceDelgate(bgInterval, aqiProvider)];
     }
     
     function onBackgroundData(data) {
@@ -71,7 +73,7 @@ class AQI_DataFieldApp extends Application.AppBase {
         System.println("onBackgroundData=" + data + " at " + ts);
         if (data != null) {
         	if (data.hasKey("PM2.5")) {
-        		if (aqiData == null || aqiData["PM2.5"] != data["PM2.5"]) {
+        		if (aqiData == null || aqiData.get("PM2.5") != data.get("PM2.5")) {
 					aqiField.setData(data["PM2.5"]);
         		}
         		aqiData = data;

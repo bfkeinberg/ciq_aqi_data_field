@@ -8,10 +8,12 @@ using Toybox.Time;
 (:background)
 class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
 	var bgInterval;
+	var aqiProvider;
 	
-	  function initialize(interval) {
+	  function initialize(interval, provider) {
 	  	ServiceDelegate.initialize();
 	  	bgInterval = interval;
+	  	aqiProvider = provider;
 	  }
 
 	function onTemporalEvent() {
@@ -51,8 +53,13 @@ class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
    }
 
 	function makeRequest(latitude, longitude) {
-       var url = "https://aqi-gateway.wl.r.appspot.com/aqi";      // set the url
-
+       var urlBase = "https://aqi-gateway.wl.r.appspot.com/";
+       var url;
+       if (aqiProvider == 1) {
+       	   url = urlBase + "aqi";
+       } else {
+       	   url = urlBase + "purpleair";
+   	   }
        var params = {                                              // set the parameters
               "lat" => latitude,
               "lon" => longitude,
