@@ -74,7 +74,14 @@ class AQI_DataFieldApp extends Application.AppBase {
         if (data != null) {
         	if (data.hasKey("PM2.5")) {
         		if (aqiData == null || aqiData.get("PM2.5") != data.get("PM2.5")) {
-					aqiField.setData(data["PM2.5"]);
+        			try
+        			{
+        				System.println("About to set field to " + data.get("PM2.5"));
+						aqiField.setData(data.get("PM2.5"));
+					}
+					catch (exception) {
+						System.println("Catch " + exception);
+					}
         		}
         		aqiData = data;
     		} else if (data.hasKey("error")) {
