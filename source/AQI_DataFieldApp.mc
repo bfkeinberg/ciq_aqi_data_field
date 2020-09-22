@@ -57,14 +57,14 @@ class AQI_DataFieldApp extends Application.AppBase {
     	} else {
     		System.println("****background not available on this device****");
     	}
-    	view = new AQI_DataFieldView(enableNotifications, aqiProvider);
+    	view = new AQI_DataFieldView(enableNotifications);
         return [ view, new TouchDelegate(view) ];
     }
     
     function getServiceDelegate(){
     	//only called in the background	
     	inBackground = true;
-        return [new AQIServiceDelgate(bgInterval, aqiProvider)];
+        return [new AQIServiceDelgate(bgInterval)];
     }
     
     function onBackgroundData(data) {
@@ -74,13 +74,9 @@ class AQI_DataFieldApp extends Application.AppBase {
         if (data != null) {
         	if (data.hasKey("PM2.5")) {
         		if (aqiData == null || aqiData.get("PM2.5") != data.get("PM2.5")) {
-        			try
-        			{
-        				System.println("About to set field to " + data.get("PM2.5"));
+	        		if (aqiField != null) {
+	    				System.println("About to set field to " + data.get("PM2.5"));
 						aqiField.setData(data.get("PM2.5"));
-					}
-					catch (exception) {
-						System.println("Catch " + exception);
 					}
         		}
         		aqiData = data;

@@ -2,18 +2,17 @@ using Toybox.System;
 using Toybox.Background;
 using Toybox.Communications;
 using Toybox.Position;
+using Toybox.Application;
 
 using Toybox.Time;
 
 (:background)
 class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
 	var bgInterval;
-	var aqiProvider;
 	
-	  function initialize(interval, provider) {
+	  function initialize(interval) {
 	  	ServiceDelegate.initialize();
 	  	bgInterval = interval;
-	  	aqiProvider = provider;
 	  }
 
 	function onTemporalEvent() {
@@ -39,7 +38,7 @@ class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
 	
    // set up the response callback function
    function onReceive(responseCode, data) {
-   		var aqi = null;
+       var aqi = null;
        if (responseCode == 200) {
            System.println("Request Successful " + data);           // print success
            aqi = data;
@@ -48,6 +47,7 @@ class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
            System.println("Response: " + responseCode + " data " + data);            // print response code
            aqi = { "error" => responseCode };
        }
+       aqi.put( "provider", Application.Properties.getValue("aqiProvider"));
 	   Background.registerForTemporalEvent(new Time.Duration(bgInterval));       
        Background.exit(aqi);
    }
@@ -55,7 +55,7 @@ class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
 	function makeRequest(latitude, longitude) {
        var urlBase = "https://aqi-gateway.wl.r.appspot.com/";
        var url;
-       if (aqiProvider == 1) {
+       if (Application.Properties.getValue("aqiProvider") == 1) {
        	   url = urlBase + "aqi";
        } else {
        	   url = urlBase + "purpleair";

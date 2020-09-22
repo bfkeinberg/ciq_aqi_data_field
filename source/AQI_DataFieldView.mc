@@ -3,6 +3,7 @@ using Toybox.Graphics;
 using Toybox.Attention;
 using Toybox.System;
 using Toybox.FitContributor;
+using Toybox.Application;
 
 class AQI_DataFieldView extends WatchUi.DataField {
 
@@ -13,13 +14,11 @@ class AQI_DataFieldView extends WatchUi.DataField {
 	var notified = false;
 	var displayPm2_5 = true;
 	const AQI_FIELD_ID = 0;
-	var aqiProvider;
 
-    function initialize(notifications, provider) {
+    function initialize(notifications) {
         DataField.initialize();
         aqiValue = null;
         enableNotifications = notifications;
-        aqiProvider = provider;
 	  	aqiField = createField("AQI", AQI_FIELD_ID, FitContributor.DATA_TYPE_UINT32,
 	  		{:mesgType=>FitContributor.MESG_TYPE_RECORD, :units=>"PM2.5"});
     }
@@ -127,7 +126,7 @@ class AQI_DataFieldView extends WatchUi.DataField {
 			}
             label.setColor(Graphics.COLOR_BLACK);
 		}
-        else if (getBackgroundColor() == Graphics.COLOR_BLACK) {
+        else if (currentAqi != null && getBackgroundColor() == Graphics.COLOR_BLACK) {
             value.setColor(Graphics.COLOR_WHITE);        	
 			if (aqiValue != null && aqiValue.hasKey("error")) {
 				value.setColor(Graphics.COLOR_LT_GRAY);
@@ -164,7 +163,7 @@ class AQI_DataFieldView extends WatchUi.DataField {
             value.setColor(Graphics.COLOR_BLACK);
             label.setColor(Graphics.COLOR_BLACK);
         }
-		if (aqiProvider == 2) {
+		if (aqiValue != null && aqiValue.hasKey("provider") && aqiValue.get("provider") == 2) {
 			var indicator = View.findDrawableById("indicator");
 			indicator.setText("Purple");
 		}
