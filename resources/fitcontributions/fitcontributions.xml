@@ -1,0 +1,6 @@
+<fitContributions>
+<fitField id="0" displayInChart="true"
+	sortOrder = "0" precision="0"
+    chartTitle="@Strings.AqiChartLabel" dataLabel="@Strings.AqiDataLabel"
+    unitLabel="@Strings.AqiUnitsLabel" fillColor="#FF0000" />
+</fitContributions>

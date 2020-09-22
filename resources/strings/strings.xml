@@ -8,4 +8,7 @@
 	<string id="aqiProviderTitle">AQI provider</string>
 	<string id="AirNow">EPA AirNow</string>
 	<string id="PurpleAir">Purple Air</string>
+	<string id="AqiChartLabel">AQI</string>
+	<string id="AqiDataLabel">AQI (PM2.5)</string>
+	<string id="AqiUnitsLabel">PM2.5</string>
 </strings>
