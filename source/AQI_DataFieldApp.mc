@@ -58,7 +58,6 @@ class AQI_DataFieldApp extends Application.AppBase {
     		System.println("****background not available on this device****");
     	}
     	view = new AQI_DataFieldView(enableNotifications, aqiProvider);
-    	System.println("Getting initial view");
         return [ view, new TouchDelegate(view) ];
     }
     
@@ -86,9 +85,17 @@ class AQI_DataFieldApp extends Application.AppBase {
         		}
         		aqiData = data;
     		} else if (data.hasKey("error")) {
-    			aqiData.put("error", data.get("error"));
+    			if (aqiData == null) {
+    				aqiData = { "error" => data.get("error") };
+    			} else {
+    				aqiData.put("error", data.get("error"));
+				}
 			} else {
-				aqiData.put("error", "No data available");
+    			if (aqiData == null) {
+    				aqiData = { "error" => "No data available" };
+				} else {			
+					aqiData.put("error", "No data available");
+				}
 			}
 			if (Application has :Storage) {
         		Application.Storage.setValue(myKey, aqiData);

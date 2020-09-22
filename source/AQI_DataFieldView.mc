@@ -165,7 +165,6 @@ class AQI_DataFieldView extends WatchUi.DataField {
             label.setColor(Graphics.COLOR_BLACK);
         }
 		if (aqiProvider == 2) {
-			System.println("About to look up indicator viewable");
 			var indicator = View.findDrawableById("indicator");
 			indicator.setText("Purple");
 		}
