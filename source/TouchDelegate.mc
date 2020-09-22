@@ -28,7 +28,7 @@ class TouchDelegate extends WatchUi.BehaviorDelegate {
 			var lastTime = Background.getLastTemporalEventTime();
 			if (lastTime != null) {
 				gregorian = Gregorian.info(lastTime, Time.FORMAT_MEDIUM);
-				System.println("last time was " + gregorian.hour + gregorian.min.format("%02d"));
+				System.println("last time was " + gregorian.hour + ":" + gregorian.min.format("%02d"));
 			    // Events scheduled for a time in the past trigger immediately
 			    var nextTime = lastTime.add(FIVE_MINUTES);
 			    Background.registerForTemporalEvent(nextTime);

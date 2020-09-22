@@ -57,7 +57,8 @@ class AQI_DataFieldApp extends Application.AppBase {
     	} else {
     		System.println("****background not available on this device****");
     	}
-    	view = new AQI_DataFieldView(enableNotifications);
+    	view = new AQI_DataFieldView(enableNotifications, aqiProvider);
+    	System.println("Getting initial view");
         return [ view, new TouchDelegate(view) ];
     }
     

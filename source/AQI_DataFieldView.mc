@@ -13,11 +13,13 @@ class AQI_DataFieldView extends WatchUi.DataField {
 	var notified = false;
 	var displayPm2_5 = true;
 	const AQI_FIELD_ID = 0;
+	var aqiProvider;
 
-    function initialize(notifications) {
+    function initialize(notifications, provider) {
         DataField.initialize();
         aqiValue = null;
         enableNotifications = notifications;
+        aqiProvider = provider;
 	  	aqiField = createField("AQI", AQI_FIELD_ID, FitContributor.DATA_TYPE_UINT32,
 	  		{:mesgType=>FitContributor.MESG_TYPE_RECORD, :units=>"PM2.5"});
     }
@@ -132,7 +134,7 @@ class AQI_DataFieldView extends WatchUi.DataField {
 				notified = false;
 			}
 			else if (currentAqi < 51) {
-				value.setColor(0x00FE00/*Graphics.COLOR_GREEN*/);
+				value.setColor(0x00FD00/*Graphics.COLOR_GREEN*/);
 				notified = false;
 			}
 			else if (currentAqi < 101) {
@@ -162,7 +164,11 @@ class AQI_DataFieldView extends WatchUi.DataField {
             value.setColor(Graphics.COLOR_BLACK);
             label.setColor(Graphics.COLOR_BLACK);
         }
-
+		if (aqiProvider == 2) {
+			System.println("About to look up indicator viewable");
+			var indicator = View.findDrawableById("indicator");
+			indicator.setText("Purple");
+		}
         // Call parent's onUpdate(dc) to redraw the layout
         View.onUpdate(dc);
     }    
