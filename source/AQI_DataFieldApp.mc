@@ -20,6 +20,7 @@ class AQI_DataFieldApp extends Application.AppBase {
 	var enableNotifications = false;
 	var inBackground = false;
 	var aqiProvider = 1;
+	var fieldIsDirty = true;
 	
     function initialize() {
         AppBase.initialize();
@@ -73,20 +74,31 @@ class AQI_DataFieldApp extends Application.AppBase {
         System.println("onBackgroundData=" + data + " at " + ts);
         if (data != null) {
         	if (data.hasKey("PM2.5")) {
-        		if (aqiData == null || aqiData.get("PM2.5") != data.get("PM2.5")) {
-	        		if (aqiField != null) {
+        		if (aqiField != null) {
+	        		if (fieldIsDirty || aqiData.get("PM2.5") != data.get("PM2.5")) {
 	    				System.println("About to set field to " + data.get("PM2.5"));
 						aqiField.setData(data.get("PM2.5"));
+						fieldIsDirty = false;
 					}
         		}
         		aqiData = data;
     		} else if (data.hasKey("error")) {
+    			if (Application.Properties.getValue("zerosForNoData") && aqiField != null) {
+    				aqiField.setData(0);
+    				fieldIsDirty = true;
+    				System.println("Recording zero for error fetching AQI");
+    			}
     			if (aqiData == null) {
     				aqiData = { "error" => data.get("error") };
     			} else {
     				aqiData.put("error", data.get("error"));
 				}
 			} else {
+    			if (Application.Properties.getValue("zerosForNoData") && aqiField != null) {
+    				aqiField.setData(0);
+    				fieldIsDirty = true;
+    				System.println("Recording zero for missing AQI");
+    			}
     			if (aqiData == null) {
     				aqiData = { "error" => "No data available" };
 				} else {			

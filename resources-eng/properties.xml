@@ -3,6 +3,7 @@
     	<property id="refreshInterval" type="number">1200</property>
     	<property id="enableNotifications" type="boolean">true</property>
     	<property id="aqiProvider" type="number">1</property>
+    	<property id="zerosForNoData" type="boolean">false</property>
     </properties>
     
        <settings>
@@ -17,6 +18,9 @@
 				<listEntry value="1">@Strings.AirNow</listEntry>
 				<listEntry value="2">@Strings.PurpleAir</listEntry>
 			</settingConfig>
+		</setting>
+		<setting propertyKey="@Properties.zerosForNoData" title="@Strings.ZerosInGraphTitle">
+			<settingConfig type="boolean" />
 		</setting>
 	</settings>
 	

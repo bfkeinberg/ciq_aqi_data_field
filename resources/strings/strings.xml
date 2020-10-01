@@ -6,6 +6,7 @@
     <string id="refreshIntervalTitle">Refresh Interval in seconds</string>
 	<string id="enableNotificationsTitle">Notify on poor air quality</string>    
 	<string id="aqiProviderTitle">AQI provider</string>
+	<string id="ZerosInGraphTitle">Record zeroes when no data</string>
 	<string id="AirNow">EPA AirNow</string>
 	<string id="PurpleAir">Purple Air</string>
 	<string id="AqiChartLabel">AQI</string>
