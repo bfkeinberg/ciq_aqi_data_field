@@ -8,12 +8,12 @@ using Toybox.Time;
 
 (:background)
 class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
-	var bgInterval;
-	
-	  function initialize(interval) {
-	  	ServiceDelegate.initialize();
-	  	bgInterval = interval;
-	  }
+
+		const minimumInterval = 5 * 60;
+			
+		function initialize() {
+	  		ServiceDelegate.initialize();
+	  	}
 
 	function onTemporalEvent() {
     	var now=Toybox.System.getClockTime();	
@@ -39,16 +39,21 @@ class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
    // set up the response callback function
    function onReceive(responseCode, data) {
        var aqi = null;
+       var interval = Application.Properties.getValue(intervalKey);
        if (responseCode == 200) {
            System.println("Request Successful " + data);           // print success
+           if (data.isEmpty()) {
+        	   interval = minimumInterval;
+    	   }	           	
            aqi = data;
        }
        else {
            System.println("Response: " + responseCode + " data " + data);            // print response code
            aqi = { "error" => responseCode };
+           interval = minimumInterval;
        }
        aqi.put( "provider", Application.Properties.getValue("aqiProvider"));
-	   Background.registerForTemporalEvent(new Time.Duration(bgInterval));       
+	   Background.registerForTemporalEvent(new Time.Duration(interval));       
        Background.exit(aqi);
    }
 

@@ -9,14 +9,12 @@ using Toybox.Position;
 
 var aqiData = null;
 var aqiField = null;
+const intervalKey = "refreshInterval";
 
 class AQI_DataFieldApp extends Application.AppBase {
 
 	const myKey = "aqidata";
-	const intervalKey = "refreshInterval";
 	const enableNotificationsKey = "enableNotifications";
-	const bgIntervalDefault = 5 * 60;
-	var bgInterval;
 	var enableNotifications = false;
 	var inBackground = false;
 	var aqiProvider = 1;
@@ -27,13 +25,9 @@ class AQI_DataFieldApp extends Application.AppBase {
         // read what's in storage
         if (Application has :Storage) {
 	        aqiData = Application.Storage.getValue(myKey);
-	        bgInterval = Application.Properties.getValue(intervalKey);
 	        enableNotifications = Application.Properties.getValue(enableNotificationsKey);
 	        aqiProvider = Application.Properties.getValue("aqiProvider");
         }
-        if (bgInterval == null) {
-        	bgInterval = bgIntervalDefault;
-    	}        
     }
 
     // onStart() is called on application start up
@@ -51,10 +45,9 @@ class AQI_DataFieldApp extends Application.AppBase {
     function getInitialView() {
     	var view;
     	
-		Application.Properties.setValue(intervalKey, bgInterval);
 		//register for temporal events if they are supported
     	if(Toybox.System has :ServiceDelegate) {
-    		Background.registerForTemporalEvent(new Time.Duration(bgInterval));
+    		Background.registerForTemporalEvent(new Time.Duration(Application.Properties.getValue(intervalKey)));
     	} else {
     		System.println("****background not available on this device****");
     	}
@@ -65,7 +58,7 @@ class AQI_DataFieldApp extends Application.AppBase {
     function getServiceDelegate(){
     	//only called in the background	
     	inBackground = true;
-        return [new AQIServiceDelgate(bgInterval)];
+        return [new AQIServiceDelgate()];
     }
     
     function onBackgroundData(data) {
