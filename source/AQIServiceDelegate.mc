@@ -60,14 +60,18 @@ class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
 	function makeRequest(latitude, longitude) {
        var urlBase = "https://aqi-gateway.wl.r.appspot.com/";
        var url;
-       if (Application.Properties.getValue("aqiProvider") == 1) {
+       var provider = Application.Properties.getValue("aqiProvider");
+       if (provider == 1) {
        	   url = urlBase + "aqi";
-       } else {
+       } else if (provider == 2) {
        	   url = urlBase + "purpleair";
+   	   } else {
+   	   	   url = urlBase + "iqair";
    	   }
        var params = {                                              // set the parameters
               "lat" => latitude,
               "lon" => longitude,
+              "device" => System.getDeviceSettings().partNumber,
               "sysId" => System.getDeviceSettings().uniqueIdentifier
        };
 

@@ -17,6 +17,7 @@
 			<settingConfig type="list">
 				<listEntry value="1">@Strings.AirNow</listEntry>
 				<listEntry value="2">@Strings.PurpleAir</listEntry>
+				<listEntry value="3">@Strings.IQAir</listEntry>
 			</settingConfig>
 		</setting>
 		<setting propertyKey="@Properties.zerosForNoData" title="@Strings.ZerosInGraphTitle">
