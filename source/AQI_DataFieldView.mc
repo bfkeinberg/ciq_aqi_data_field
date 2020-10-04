@@ -163,9 +163,22 @@ class AQI_DataFieldView extends WatchUi.DataField {
             value.setColor(Graphics.COLOR_BLACK);
             label.setColor(Graphics.COLOR_BLACK);
         }
-		if (aqiValue != null && aqiValue.hasKey("provider") && aqiValue.get("provider") == 2) {
+		if (aqiValue != null && aqiValue.hasKey("provider")) {
 			var indicator = View.findDrawableById("indicator");
-			indicator.setText("Purple");
+			switch(aqiValue.get("provider")) {
+			case 1:
+				indicator.setText("AirNow");
+				indicator.setColor(Graphics.COLOR_DK_GRAY);
+				break;
+			case 2:			
+				indicator.setText("Purple");
+				indicator.setColor(Graphics.COLOR_PURPLE);
+				break;
+			case 3:
+				indicator.setColor(Graphics.COLOR_DK_GRAY);
+				indicator.setText("IQAir");
+				break;
+			}
 		}
         // Call parent's onUpdate(dc) to redraw the layout
         View.onUpdate(dc);
