@@ -26,7 +26,11 @@ class AQI_DataFieldApp extends Application.AppBase {
         if (Application has :Storage) {
 	        aqiData = Application.Storage.getValue(myKey);
 	        if (Application has :Properties) {
-		        enableNotifications = Application.Properties.getValue(enableNotificationsKey);
+	        	try {
+		        	enableNotifications = Application.Properties.getValue("enableNotifications");
+	        	} catch (ex) {
+	        		System.println("Error getting notifications setting " + ex);
+	        	}
 		        aqiProvider = Application.Properties.getValue("aqiProvider");
 	        }
         }
