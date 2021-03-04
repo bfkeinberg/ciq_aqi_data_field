@@ -25,8 +25,10 @@ class AQI_DataFieldApp extends Application.AppBase {
         // read what's in storage
         if (Application has :Storage) {
 	        aqiData = Application.Storage.getValue(myKey);
-	        enableNotifications = Application.Properties.getValue(enableNotificationsKey);
-	        aqiProvider = Application.Properties.getValue("aqiProvider");
+	        if (Application has :Properties) {
+		        enableNotifications = Application.Properties.getValue(enableNotificationsKey);
+		        aqiProvider = Application.Properties.getValue("aqiProvider");
+	        }
         }
     }
 

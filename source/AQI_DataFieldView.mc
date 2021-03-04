@@ -19,8 +19,12 @@ class AQI_DataFieldView extends WatchUi.DataField {
         DataField.initialize();
         aqiValue = null;
         enableNotifications = notifications;
-	  	aqiField = createField("AQI", AQI_FIELD_ID, FitContributor.DATA_TYPE_UINT32,
-	  		{:mesgType=>FitContributor.MESG_TYPE_RECORD, :units=>"PM2.5"});
+        try {
+		  	aqiField = createField("AQI", AQI_FIELD_ID, FitContributor.DATA_TYPE_UINT32,
+		  		{:mesgType=>FitContributor.MESG_TYPE_RECORD, :units=>"PM2.5"});
+  		} catch (ex) {
+  			System.println("could not create aqiField " + ex);
+  		}
     }
 
     // Set your layout here. Anytime the size of obscurity of
