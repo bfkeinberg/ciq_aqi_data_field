@@ -19,18 +19,17 @@ class AQI_DataFieldApp extends Application.AppBase {
 	var inBackground = false;
 	var aqiProvider = 1;
 	var fieldIsDirty = true;
-	
+			
     function initialize() {
         AppBase.initialize();
         // read what's in storage
         if (Application has :Storage) {
 	        aqiData = Application.Storage.getValue(myKey);
 	        if (Application has :Properties) {
-	        	try {
-		        	enableNotifications = Application.Properties.getValue("enableNotifications");
-	        	} catch (ex) {
-	        		System.println("Error getting notifications setting " + ex);
-	        	}
+	        	var enabledProperty = Application.Properties.getValue(enableNotificationsKey);
+	        	if (enabledProperty != null && enabledProperty instanceof Boolean) {
+	        		enableNotifications = enabledProperty;
+        		}
 		        aqiProvider = Application.Properties.getValue("aqiProvider");
 	        }
         }
