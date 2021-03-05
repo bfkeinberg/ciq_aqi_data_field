@@ -20,16 +20,25 @@ class AQI_DataFieldApp extends Application.AppBase {
 	var aqiProvider = 1;
 	var fieldIsDirty = true;
 			
+	function readKeyBool(myApp,key,thisDefault) {
+	    var value = myApp.getProperty(key);
+	    if(value == null || !(value instanceof Boolean)) {
+	        if(value != null) {
+	            value = value == "true";
+	        } else {
+	            value = thisDefault;
+	        }
+	    }
+	    return value;
+	}
+				
     function initialize() {
         AppBase.initialize();
         // read what's in storage
         if (Application has :Storage) {
 	        aqiData = Application.Storage.getValue(myKey);
 	        if (Application has :Properties) {
-	        	var enabledProperty = Application.Properties.getValue(enableNotificationsKey);
-	        	if (enabledProperty != null && enabledProperty instanceof Boolean) {
-	        		enableNotifications = enabledProperty;
-        		}
+	        	enableNotifications = readKeyBool(getApp(), enableNotificationsKey, false);
 		        aqiProvider = Application.Properties.getValue("aqiProvider");
 	        }
         }
