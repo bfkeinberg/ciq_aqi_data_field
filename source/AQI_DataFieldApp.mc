@@ -31,7 +31,19 @@ class AQI_DataFieldApp extends Application.AppBase {
 	    }
 	    return value;
 	}
-				
+	
+	function readKeyInt(myApp,key,thisDefault) {
+	    var value = myApp.getProperty(key);
+	    if(value == null || !(value instanceof Number)) {
+	        if(value != null) {
+	            value = value.toNumber();
+	        } else {
+	            value = thisDefault;
+	        }
+	    }
+	    return value;
+	}
+					
     function initialize() {
         AppBase.initialize();
         // read what's in storage
@@ -39,7 +51,7 @@ class AQI_DataFieldApp extends Application.AppBase {
 	        aqiData = Application.Storage.getValue(myKey);
 	        if (Application has :Properties) {
 	        	enableNotifications = readKeyBool(getApp(), enableNotificationsKey, false);
-		        aqiProvider = Application.Properties.getValue("aqiProvider");
+		        aqiProvider = readKeyInt(getApp(), "aqiProvider", 1);
 	        }
         }
     }
