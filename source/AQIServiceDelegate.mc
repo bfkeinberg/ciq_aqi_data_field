@@ -58,7 +58,7 @@ class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
    }
 
 	function makeRequest(latitude, longitude) {
-       var urlBase = "https://aqi-gateway.herokuapp.com/";
+       var urlBase = "http://aqi-redirector.randoplan.com.s3-website-us-east-1.amazonaws.com/";
        var url;
        var provider = Application.Properties.getValue("aqiProvider");
        if (provider == 1) {
