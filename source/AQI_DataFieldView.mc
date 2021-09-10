@@ -95,11 +95,17 @@ class AQI_DataFieldView extends WatchUi.DataField {
         	currentAqi = aqiValue.get(selectedValue);
         	value.setText(currentAqi.toString());
     	} else {
-    		value.setText("N/A");
+			if (aqiValue != null) {
+				value.setText(aqiValue.get("error").toString());
+			} else {
+	    		value.setText("N/A");
+			}
 		}
 		if (currentAqi != null && getBackgroundColor() == Graphics.COLOR_WHITE) {
 			if (aqiValue != null && aqiValue.hasKey("error")) {
-				value.setColor(Graphics.COLOR_LT_GRAY);
+				View.findDrawableById("Background").setColor(Graphics.COLOR_RED);
+				value.setColor(Graphics.COLOR_WHITE);
+				value.setText(aqiValue.get("error").toString());
 				notified = false;
 			}
 			else if (currentAqi < 51) {
@@ -133,7 +139,10 @@ class AQI_DataFieldView extends WatchUi.DataField {
         else if (currentAqi != null && getBackgroundColor() == Graphics.COLOR_BLACK) {
             value.setColor(Graphics.COLOR_WHITE);        	
 			if (aqiValue != null && aqiValue.hasKey("error")) {
-				value.setColor(Graphics.COLOR_LT_GRAY);
+//				value.setColor(Graphics.COLOR_LT_GRAY);
+				View.findDrawableById("Background").setColor(Graphics.COLOR_RED);
+				value.setColor(Graphics.COLOR_WHITE);
+				value.setText(aqiValue.get("error").toString());
 				notified = false;
 			}
 			else if (currentAqi < 51) {
