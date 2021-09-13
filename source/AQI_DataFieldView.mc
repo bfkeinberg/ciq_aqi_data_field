@@ -91,11 +91,13 @@ class AQI_DataFieldView extends WatchUi.DataField {
     	}
         label.setText(displayPm2_5 ? Rez.Strings.label : Rez.Strings.ozoneLabel);
 		var selectedValue = displayPm2_5 ? particulateValue : ozoneValue;
-        if (aqiValue != null && aqiValue.hasKey(selectedValue)) {
+        if (aqiValue != null && aqiValue.hasKey(selectedValue) && aqiValue.get(selectedValue) != null) {
         	currentAqi = aqiValue.get(selectedValue);
         	value.setText(currentAqi.toString());
     	} else {
-			if (aqiValue != null) {
+			if (aqiValue != null && aqiValue.get("error") != null) {
+				View.findDrawableById("Background").setColor(Graphics.COLOR_RED);
+				value.setColor(Graphics.COLOR_WHITE);
 				value.setText(aqiValue.get("error").toString());
 			} else {
 	    		value.setText("N/A");

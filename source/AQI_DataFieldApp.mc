@@ -14,6 +14,7 @@ const intervalKey = "refreshInterval";
 class AQI_DataFieldApp extends Application.AppBase {
 
 	const myKey = "aqidata";
+	const pm2_5 = "PM2.5";
 	const enableNotificationsKey = "enableNotifications";
 	var enableNotifications = false;
 	var inBackground = false;
@@ -94,9 +95,13 @@ class AQI_DataFieldApp extends Application.AppBase {
         if (data != null) {
         	if (data.hasKey("PM2.5")) {
         		if (aqiField != null) {
-	        		if (fieldIsDirty || aqiData.get("PM2.5") != data.get("PM2.5")) {
-	    				System.println("About to set field to " + data.get("PM2.5"));
-						aqiField.setData(data.get("PM2.5"));
+	        		if (fieldIsDirty || aqiData.get(pm2_5) != data.get(pm2_5)) {
+	        			if (data.get(pm2_5) == null) {
+	        				aqiField.setData(0);
+	        			} else {
+		    				System.println("About to set field to " + data.get(pm2_5));
+							aqiField.setData(data.get(pm2_5));
+						}
 						fieldIsDirty = false;
 					}
         		}
