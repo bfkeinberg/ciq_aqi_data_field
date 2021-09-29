@@ -18,7 +18,7 @@ class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
 	function onTemporalEvent() {
     	var now=Toybox.System.getClockTime();	
 		var ts=now.hour+":"+now.min.format("%02d");    
-    	System.println("onTemporalEvent: "+ts);
+//    	System.println("onTemporalEvent: "+ts);
     	requestCurrentAqi();	
 	}
 	
@@ -26,13 +26,18 @@ class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
 		var position = Position.getInfo();
 		if (position != null) {
 			var coords = position.position;
-			if (coords != null) {
+			if (coords != null && position.accuracy > Position.QUALITY_LAST_KNOWN) {
+//				System.println("Coordinates: " + coords.toGeoString(Position.GEO_DM) + " Accuracy: " + position.accuracy);
 				var positionInDegrees = coords.toDegrees();
 				if (positionInDegrees != null) {
 					System.println("Latitude " + positionInDegrees[0] + " longitude " + positionInDegrees[1]);
 					makeRequest(positionInDegrees[0], positionInDegrees[1]);
 				}
+			} else {
+				System.println("Null position field or poor accuracy; accuracy is " + position.accuracy);
 			}
+		} else {
+			System.println("Null position at " + Toybox.System.getClockTime());
 		}
 	}
 	
@@ -58,7 +63,7 @@ class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
    }
 
 	function makeRequest(latitude, longitude) {
-       var urlBase = "https://aqi-gateway.wl.r.appspot.com/";
+       var urlBase = "https://aqi-gateway.herokuapp.com/";
        var url;
        var provider = Application.Properties.getValue("aqiProvider");
        if (provider == 1) {
