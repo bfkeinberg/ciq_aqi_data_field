@@ -26,7 +26,7 @@ class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
 		var position = Position.getInfo();
 		if (position != null) {
 			var coords = position.position;
-			if (coords != null && position.accuracy > Position.QUALITY_LAST_KNOWN) {
+			if (coords != null && position.accuracy > Position.QUALITY_POOR) {
 //				System.println("Coordinates: " + coords.toGeoString(Position.GEO_DM) + " Accuracy: " + position.accuracy);
 				var positionInDegrees = coords.toDegrees();
 				if (positionInDegrees != null) {
@@ -65,6 +65,7 @@ class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
 	function makeRequest(latitude, longitude) {
        var urlBase = "https://aqi-gateway.herokuapp.com/";
        var url;
+       var email = "";
        var provider = Application.Properties.getValue("aqiProvider");
        if (provider == 1) {
        	   url = urlBase + "aqi";
@@ -73,11 +74,15 @@ class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
    	   } else {
    	   	   url = urlBase + "iqair";
    	   }
+   	   if (Application.Properties.getValue("email") != null) {
+   	   	email = Application.Properties.getValue("email");
+   	   }
        var params = {                                              // set the parameters
               "lat" => latitude,
               "lon" => longitude,
               "device" => System.getDeviceSettings().partNumber,
-              "sysId" => System.getDeviceSettings().uniqueIdentifier
+              "sysId" => System.getDeviceSettings().uniqueIdentifier,
+              "email" => email
        };
 
        var options = {                                             // set the options

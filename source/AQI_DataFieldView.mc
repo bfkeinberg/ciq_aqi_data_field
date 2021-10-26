@@ -14,7 +14,9 @@ class AQI_DataFieldView extends WatchUi.DataField {
 	var notified = false;
 	var displayPm2_5 = true;
 	const AQI_FIELD_ID = 0;
-
+	var timesVersionDisplayed = 0;
+	const timesToDisplayVersion = 5;
+	
     function initialize(notifications) {
         DataField.initialize();
         aqiValue = null;
@@ -195,6 +197,14 @@ class AQI_DataFieldView extends WatchUi.DataField {
 				break;
 			}
 		}
+        if (timesVersionDisplayed < timesToDisplayVersion) {
+        	System.println("displaying version with a count of " + timesVersionDisplayed); 
+        	timesVersionDisplayed += 1;
+        	View.findDrawableById("version").setText(Rez.Strings.Version);
+    	} else {
+        	View.findDrawableById("version").setText("");
+		}    	
+		
         // Call parent's onUpdate(dc) to redraw the layout
         View.onUpdate(dc);
     }    

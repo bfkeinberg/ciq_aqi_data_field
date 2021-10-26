@@ -4,7 +4,11 @@
         <drawable class="Background" />
         <label id="label" x="center" y="center" color="Graphics.COLOR_LT_GRAY" justification="Graphics.TEXT_JUSTIFY_CENTER" font="Graphics.FONT_TINY" />
         <label id="value" x="center" y="center" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_CENTER" font="Graphics.FONT_LARGE" />
-        <label id="indicator" x="left" y="bottom" color="Graphics.COLOR_PURPLE" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_XTINY" />
+        <label id="indicator" x="left" y="bottom" color="Graphics.COLOR_PURPLE" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_XTINY" /><label
+        	id="version" x="center" y="center"
+        	justification="Graphics.TEXT_JUSTIFY_CENTER"
+        	font="Graphics.FONT_MEDIUM" color="Graphics.COLOR_DK_GREEN" background="Graphics.COLOR_WHITE">
+</label>
     </layout>
 
     <!-- Layouts used for the for the four quadrants. -->
@@ -13,23 +17,35 @@
         <label id="label" x="95" y="75" color="Graphics.COLOR_LT_GRAY" justification="Graphics.TEXT_JUSTIFY_RIGHT" font="Graphics.FONT_TINY" />
         <label id="value" x="95" y="42" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_RIGHT" font="Graphics.FONT_LARGE" />
         <label id="indicator" x="left" y="top" color="Graphics.COLOR_PURPLE" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_XTINY" />
-    </layout>
+        <label id="version" x="center" y="center"
+        	justification="Graphics.TEXT_JUSTIFY_CENTER"
+        	font="Graphics.FONT_MEDIUM" color="Graphics.COLOR_ORANGE">
+        </label></layout>
     <layout id="TopRightLayout">
         <drawable class="Background" />
         <label id="label" x="14" y="75" color="Graphics.COLOR_LT_GRAY" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_TINY" />
         <label id="value" x="14" y="42" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_LARGE" />
         <label id="indicator" x="right" y="top" color="Graphics.COLOR_PURPLE" justification="Graphics.TEXT_JUSTIFY_RIGHT" font="Graphics.FONT_XTINY" />
-    </layout>
+        <label id="version" x="center" y="center"
+        	justification="Graphics.TEXT_JUSTIFY_CENTER"
+        	font="Graphics.FONT_MEDIUM" color="Graphics.COLOR_ORANGE">
+        </label></layout>
     <layout id="BottomLeftLayout">
         <drawable class="Background" />
         <label id="label" x="95" y="10" color="Graphics.COLOR_LT_GRAY" justification="Graphics.TEXT_JUSTIFY_RIGHT" font="Graphics.FONT_TINY" />
         <label id="value" x="95" y="27" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_RIGHT" font="Graphics.FONT_LARGE" />
         <label id="indicator" x="left" y="bottom" color="Graphics.COLOR_PURPLE" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_XTINY" />
-    </layout>
+        <label id="version" x="center" y="center"
+        	justification="Graphics.TEXT_JUSTIFY_CENTER"
+        	font="Graphics.FONT_MEDIUM" color="Graphics.COLOR_ORANGE">
+        </label></layout>
     <layout id="BottomRightLayout">
         <drawable class="Background" />
         <label id="label" x="14" y="10" color="Graphics.COLOR_LT_GRAY" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_TINY" />
         <label id="value" x="14" y="27" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_LARGE" />
         <label id="indicator" x="right" y="bottom" color="Graphics.COLOR_PURPLE" justification="Graphics.TEXT_JUSTIFY_RIGHT" font="Graphics.FONT_XTINY" />
-    </layout>
+        <label id="version" x="center" y="center"
+        	justification="Graphics.TEXT_JUSTIFY_CENTER"
+        	font="Graphics.FONT_MEDIUM" color="Graphics.COLOR_ORANGE">
+        </label></layout>
 </layouts>

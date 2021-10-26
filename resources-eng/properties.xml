@@ -4,6 +4,7 @@
     	<property id="enableNotifications" type="boolean">true</property>
     	<property id="aqiProvider" type="number">1</property>
     	<property id="zerosForNoData" type="boolean">false</property>
+    	<property id="email" type="string"></property>
     </properties>
     
        <settings>
@@ -23,6 +24,9 @@
 		<setting propertyKey="@Properties.zerosForNoData" title="@Strings.ZerosInGraphTitle">
 			<settingConfig type="boolean" />
 		</setting>
-	</settings>
+		<setting propertyKey="@Properties.email" title="@Strings.EmailTitle" prompt="@Strings.EmailPrompt" helpUrl="https://www.randoplan.com/aqi">
+			<settingConfig type="email"></settingConfig>
+		</setting>
+       </settings>
 	
 </resources>    
