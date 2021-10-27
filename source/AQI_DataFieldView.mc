@@ -4,6 +4,7 @@ using Toybox.Attention;
 using Toybox.System;
 using Toybox.FitContributor;
 using Toybox.Application;
+using Toybox.Time;
 
 class AQI_DataFieldView extends WatchUi.DataField {
 
@@ -14,8 +15,9 @@ class AQI_DataFieldView extends WatchUi.DataField {
 	var notified = false;
 	var displayPm2_5 = true;
 	const AQI_FIELD_ID = 0;
-	var timesVersionDisplayed = 0;
-	const timesToDisplayVersion = 5;
+	var displayVersion = true;
+	const secondsToDisplayVersion = 14;
+	var initialTime;
 	
     function initialize(notifications) {
         DataField.initialize();
@@ -27,6 +29,7 @@ class AQI_DataFieldView extends WatchUi.DataField {
   		} catch (ex) {
   			System.println("could not create aqiField " + ex);
   		}
+  		initialTime = Time.now();
     }
 
     // Set your layout here. Anytime the size of obscurity of
@@ -74,6 +77,7 @@ class AQI_DataFieldView extends WatchUi.DataField {
     // Display the value you computed here. This will be called
     // once a second when the data field is visible.
     function onUpdate(dc) {
+    	dc.clear();
         var label = View.findDrawableById("label");
     
         // Set the background color
@@ -197,12 +201,14 @@ class AQI_DataFieldView extends WatchUi.DataField {
 				break;
 			}
 		}
-        if (timesVersionDisplayed < timesToDisplayVersion) {
-        	System.println("displaying version with a count of " + timesVersionDisplayed); 
-        	timesVersionDisplayed += 1;
+        if (me.displayVersion) {
+        	var now = Time.now();
         	View.findDrawableById("version").setText(Rez.Strings.Version);
+        	me.displayVersion = now.subtract(initialTime).value() < secondsToDisplayVersion;
     	} else {
-        	View.findDrawableById("version").setText("");
+    		var version = View.findDrawableById("version");
+        	version.setBackgroundColor(Graphics.COLOR_TRANSPARENT);
+        	version.setText("");
 		}    	
 		
         // Call parent's onUpdate(dc) to redraw the layout

@@ -99,7 +99,7 @@ class AQI_DataFieldApp extends Application.AppBase {
 	        			if (data.get(pm2_5) == null) {
 	        				aqiField.setData(0);
 	        			} else {
-		    				System.println("About to set field to " + data.get(pm2_5));
+		    				//System.println("About to set field to " + data.get(pm2_5));
 							aqiField.setData(data.get(pm2_5));
 						}
 						fieldIsDirty = false;
