@@ -7,7 +7,7 @@
         <label id="indicator" x="left" y="bottom" color="Graphics.COLOR_PURPLE" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_XTINY" /><label
         	id="version" x="center" y="center"
         	justification="Graphics.TEXT_JUSTIFY_CENTER"
-        	font="Graphics.FONT_MEDIUM" color="Graphics.COLOR_DK_GREEN" background="Graphics.COLOR_WHITE">
+        	font="Graphics.FONT_MEDIUM" color="Graphics.COLOR_BLACK" background="Graphics.COLOR_ORANGE">
 </label>
     </layout>
 
@@ -46,6 +46,7 @@
         <label id="indicator" x="right" y="bottom" color="Graphics.COLOR_PURPLE" justification="Graphics.TEXT_JUSTIFY_RIGHT" font="Graphics.FONT_XTINY" />
         <label id="version" x="center" y="center"
         	justification="Graphics.TEXT_JUSTIFY_CENTER"
-        	font="Graphics.FONT_MEDIUM" color="Graphics.COLOR_ORANGE">
+        	font="Graphics.FONT_MEDIUM" color="Graphics.COLOR_BLACK"
+        	background="Graphics.COLOR_ORANGE">
         </label></layout>
 </layouts>

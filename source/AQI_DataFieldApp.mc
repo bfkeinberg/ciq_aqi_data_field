@@ -113,9 +113,10 @@ class AQI_DataFieldApp extends Application.AppBase {
     				System.println("Recording zero for error fetching AQI");
     			}
     			if (aqiData == null) {
-    				aqiData = { "error" => data.get("error") };
+    				aqiData = { "error" => data.get("error"), "hideError" => data.get("hideError") };
     			} else {
     				aqiData.put("error", data.get("error"));
+    				aqiData.put("hideError", data.get("hideError"));
 				}
 			} else {
     			if (Application.Properties.getValue("zerosForNoData") && aqiField != null) {

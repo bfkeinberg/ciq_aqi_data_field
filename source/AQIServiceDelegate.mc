@@ -30,7 +30,7 @@ class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
 //				System.println("Coordinates: " + coords.toGeoString(Position.GEO_DM) + " Accuracy: " + position.accuracy);
 				var positionInDegrees = coords.toDegrees();
 				if (positionInDegrees != null) {
-					System.println("Latitude " + positionInDegrees[0] + " longitude " + positionInDegrees[1]);
+//					System.println("Latitude " + positionInDegrees[0] + " longitude " + positionInDegrees[1]);
 					makeRequest(positionInDegrees[0], positionInDegrees[1]);
 				}
 			} else {
@@ -52,8 +52,16 @@ class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
     	   }	           	
            aqi = data;
        }
+       else if (responseCode == 429) {
+	       System.println("Rate limited, wait forty minutes");
+           aqi = { "error" => responseCode, "hideError" => true };
+           if (data != null && !data.isEmpty()) {  
+           	 System.println(data.keys());
+           }
+       	   interval = 60 * 40;
+       }
        else {
-           System.println("Response: " + responseCode + " data " + data);            // print response code
+           System.println("Response: " + responseCode + " data " + data);
            aqi = { "error" => responseCode };
            interval = minimumInterval;
        }
@@ -65,7 +73,7 @@ class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
 	function makeRequest(latitude, longitude) {
        var urlBase = "https://aqi-gateway.herokuapp.com/";
        var url;
-       var email = "";
+       var email = Application.Properties.getValue("email");
        var provider = Application.Properties.getValue("aqiProvider");
        if (provider == 1) {
        	   url = urlBase + "aqi";
@@ -74,8 +82,8 @@ class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
    	   } else {
    	   	   url = urlBase + "iqair";
    	   }
-   	   if (Application.Properties.getValue("email") != null) {
-   	   	email = Application.Properties.getValue("email");
+   	   if (email == null || email == "--") {
+            email = "";
    	   }
        var params = {                                              // set the parameters
               "lat" => latitude,
@@ -84,7 +92,6 @@ class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
               "sysId" => System.getDeviceSettings().uniqueIdentifier,
               "email" => email
        };
-
        var options = {                                             // set the options
            :method => Communications.HTTP_REQUEST_METHOD_GET,      // set HTTP method
            :headers => {                                           // set headers

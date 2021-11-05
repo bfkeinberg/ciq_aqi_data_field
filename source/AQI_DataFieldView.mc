@@ -111,9 +111,13 @@ class AQI_DataFieldView extends WatchUi.DataField {
 		}
 		if (currentAqi != null && getBackgroundColor() == Graphics.COLOR_WHITE) {
 			if (aqiValue != null && aqiValue.hasKey("error")) {
-				View.findDrawableById("Background").setColor(Graphics.COLOR_RED);
-				value.setColor(Graphics.COLOR_WHITE);
-				value.setText(aqiValue.get("error").toString());
+				if (aqiValue.hasKey("hideError")) {
+					value.setColor(Graphics.COLOR_LT_GRAY);
+				} else {
+					View.findDrawableById("Background").setColor(Graphics.COLOR_RED);
+					value.setColor(Graphics.COLOR_WHITE);
+					value.setText(aqiValue.get("error").toString());
+				}
 				notified = false;
 			}
 			else if (currentAqi < 51) {
@@ -147,10 +151,13 @@ class AQI_DataFieldView extends WatchUi.DataField {
         else if (currentAqi != null && getBackgroundColor() == Graphics.COLOR_BLACK) {
             value.setColor(Graphics.COLOR_WHITE);        	
 			if (aqiValue != null && aqiValue.hasKey("error")) {
-//				value.setColor(Graphics.COLOR_LT_GRAY);
-				View.findDrawableById("Background").setColor(Graphics.COLOR_RED);
-				value.setColor(Graphics.COLOR_WHITE);
-				value.setText(aqiValue.get("error").toString());
+				if (aqiValue.hasKey("hideError")) {
+					value.setColor(Graphics.COLOR_LT_GRAY);
+				} else {
+					View.findDrawableById("Background").setColor(Graphics.COLOR_RED);
+					value.setColor(Graphics.COLOR_WHITE);
+					value.setText(aqiValue.get("error").toString());
+				}
 				notified = false;
 			}
 			else if (currentAqi < 51) {
@@ -181,8 +188,13 @@ class AQI_DataFieldView extends WatchUi.DataField {
 			}
             label.setColor(Graphics.COLOR_WHITE);
         } else {
-            value.setColor(Graphics.COLOR_BLACK);
-            label.setColor(Graphics.COLOR_BLACK);
+        	if (getBackgroundColor() == Graphics.COLOR_BLACK) {
+	            value.setColor(Graphics.COLOR_WHITE);
+	            label.setColor(Graphics.COLOR_WHITE);
+        	} else {
+	            value.setColor(Graphics.COLOR_BLACK);
+	            label.setColor(Graphics.COLOR_BLACK);
+            }
         }
 		if (aqiValue != null && aqiValue.hasKey("provider")) {
 			var indicator = View.findDrawableById("indicator");
