@@ -57,8 +57,14 @@ class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
            aqi = { "error" => responseCode, "hideError" => true };
            if (data != null && !data.isEmpty()) {  
            	 System.println(data.keys());
-           }
-       	   interval = 60 * 40;
+           	 if (data.hasKey("retryAfter")) {
+           	 	interval = data.get("retryAfter");
+       	 	 } else {
+       	 	 	interval = 60 * 40;
+   	 	 	 }
+           } else {
+       	   	interval = 60 * 40;
+       	   }
        }
        else {
            System.println("Response: " + responseCode + " data " + data);
