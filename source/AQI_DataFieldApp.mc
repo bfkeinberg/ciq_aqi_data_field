@@ -4,11 +4,12 @@ using Toybox.Time;
 using Toybox.Background;
 using Toybox.WatchUi;
 using Toybox.FitContributor;
-
+import Toybox.Lang;
 using Toybox.Position;
 
 var aqiData = null;
 var aqiField = null;
+var temperatureField = null;
 const intervalKey = "refreshInterval";
 
 class AQI_DataFieldApp extends Application.AppBase {
@@ -34,7 +35,7 @@ class AQI_DataFieldApp extends Application.AppBase {
 	}
 	
 	function readKeyInt(myApp,key,thisDefault) {
-	    var value = myApp.getProperty(key);
+	    var value = myApp.getProperty(key) as Lang.Number;
 	    if(value == null || !(value instanceof Number)) {
 	        if(value != null) {
 	            value = value.toNumber();
@@ -74,7 +75,7 @@ class AQI_DataFieldApp extends Application.AppBase {
     	
 		//register for temporal events if they are supported
     	if(Toybox.System has :ServiceDelegate) {
-    		Background.registerForTemporalEvent(new Time.Duration(Application.Properties.getValue(intervalKey)));
+     		Background.registerForTemporalEvent(new Time.Duration(Application.Properties.getValue(intervalKey)));
     	} else {
     		System.println("****background not available on this device****");
     	}
@@ -88,11 +89,15 @@ class AQI_DataFieldApp extends Application.AppBase {
         return [new AQIServiceDelgate()];
     }
     
-    function onBackgroundData(data) {
+    function onBackgroundData(data_raw as Application.PersistableType) {
     	var now=System.getClockTime();
     	var ts=now.hour+":"+now.min.format("%02d");
-        System.println("onBackgroundData=" + data + " at " + ts);
-        if (data != null) {
+        System.println("onBackgroundData=" + data_raw + " at " + ts);
+        if (data_raw != null) {
+			var data = data_raw as Lang.Dictionary;
+			if (data.hasKey("Temperature")) {
+				temperatureField = data.get("Temperature");
+			}
         	if (data.hasKey("PM2.5")) {
         		if (aqiField != null) {
 	        		if (fieldIsDirty || aqiData.get(pm2_5) != data.get(pm2_5)) {

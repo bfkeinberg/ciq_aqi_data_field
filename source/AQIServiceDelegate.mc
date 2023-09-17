@@ -3,7 +3,7 @@ using Toybox.Background;
 using Toybox.Communications;
 using Toybox.Position;
 using Toybox.Application;
-
+import Toybox.Lang;
 using Toybox.Time;
 
 (:background)
@@ -18,7 +18,7 @@ class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
 	function onTemporalEvent() {
     	var now=Toybox.System.getClockTime();	
 		var ts=now.hour+":"+now.min.format("%02d");    
-//    	System.println("onTemporalEvent: "+ts);
+    	// System.println("onTemporalEvent: "+ts);
     	requestCurrentAqi();	
 	}
 	
@@ -42,7 +42,7 @@ class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
 	}
 	
    // set up the response callback function
-   function onReceive(responseCode, data) {
+   function onReceive(responseCode as Lang.Number, data as Null or Lang.Dictionary or Lang.String) as Void {
        var aqi = null;
        var interval = Application.Properties.getValue(intervalKey);
        if (responseCode == 200) {

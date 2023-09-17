@@ -9,6 +9,7 @@ using Toybox.Time;
 class AQI_DataFieldView extends WatchUi.DataField {
 
     hidden var aqiValue;
+	hidden var temperatureValue;
     const particulateValue = "PM2.5";
     const ozoneValue = "O3";
 	var enableNotifications = false;
@@ -54,6 +55,9 @@ class AQI_DataFieldView extends WatchUi.DataField {
             View.setLayout(Rez.Layouts.BottomRightLayout(dc));
 
         // Use the generic, centered layout
+		System.println("dc width is " + dc.getWidth());
+		} else if (dc.getWidth() > 140) {
+			View.setLayout(Rez.Layouts.WiderLayout(dc));
         } else {
             View.setLayout(Rez.Layouts.MainLayout(dc));
             var labelView = View.findDrawableById("label");
@@ -61,9 +65,9 @@ class AQI_DataFieldView extends WatchUi.DataField {
             var valueView = View.findDrawableById("value");
             valueView.locY = valueView.locY + 7;
         }
-
-        View.findDrawableById("label").setText(displayPm2_5 ? Rez.Strings.label : Rez.Strings.ozoneLabel);
-        return true;
+		var label = View.findDrawableById("label") as WatchUi.Text;
+        label.setText(displayPm2_5 ? Rez.Strings.label : Rez.Strings.ozoneLabel);
+        return;
     }
 
     // The given info object contains all the current workout information.
@@ -72,19 +76,22 @@ class AQI_DataFieldView extends WatchUi.DataField {
     // guarantee that compute() will be called before onUpdate().
     function compute(info) {
     	aqiValue = aqiData;
+		temperatureValue = temperatureField;
     }
 
     // Display the value you computed here. This will be called
     // once a second when the data field is visible.
     function onUpdate(dc) {
     	dc.clear();
-        var label = View.findDrawableById("label");
+        var label = View.findDrawableById("label") as WatchUi.Text;
     
         // Set the background color
-        View.findDrawableById("Background").setColor(getBackgroundColor());
+		var background = View.findDrawableById("Background") as WatchUi.Text;
+        background.setColor(getBackgroundColor());
 
         // Set the foreground color and value
-        var value = View.findDrawableById("value");
+        var value = View.findDrawableById("value") as WatchUi.Text;
+		var temperatureDrawable = View.findDrawableById("temperature") as WatchUi.Text;
         var currentAqi = null;
         // if the user has toggled to display ozone but we don't have a value for it in the results
         // switch back to displaying PM 2.5
@@ -102,11 +109,16 @@ class AQI_DataFieldView extends WatchUi.DataField {
         	value.setText(currentAqi.toString());
     	} else {
 			if (aqiValue != null && aqiValue.get("error") != null) {
-				View.findDrawableById("Background").setColor(Graphics.COLOR_RED);
+				background.setColor(Graphics.COLOR_RED);
 				value.setColor(Graphics.COLOR_WHITE);
 				value.setText(aqiValue.get("error").toString());
 			} else {
 	    		value.setText("N/A");
+			}
+		}
+		if (getBackgroundColor() == Graphics.COLOR_WHITE) {
+			if (temperatureDrawable != null) {
+				temperatureDrawable.setColor(Graphics.COLOR_BLACK);
 			}
 		}
 		if (currentAqi != null && getBackgroundColor() == Graphics.COLOR_WHITE) {
@@ -114,7 +126,7 @@ class AQI_DataFieldView extends WatchUi.DataField {
 				if (aqiValue.hasKey("hideError")) {
 					value.setColor(Graphics.COLOR_LT_GRAY);
 				} else {
-					View.findDrawableById("Background").setColor(Graphics.COLOR_RED);
+					background.setColor(Graphics.COLOR_RED);
 					value.setColor(Graphics.COLOR_WHITE);
 					value.setText(aqiValue.get("error").toString());
 				}
@@ -154,7 +166,7 @@ class AQI_DataFieldView extends WatchUi.DataField {
 				if (aqiValue.hasKey("hideError")) {
 					value.setColor(Graphics.COLOR_LT_GRAY);
 				} else {
-					View.findDrawableById("Background").setColor(Graphics.COLOR_RED);
+					background.setColor(Graphics.COLOR_RED);
 					value.setColor(Graphics.COLOR_WHITE);
 					value.setText(aqiValue.get("error").toString());
 				}
@@ -197,7 +209,7 @@ class AQI_DataFieldView extends WatchUi.DataField {
             }
         }
 		if (aqiValue != null && aqiValue.hasKey("provider")) {
-			var indicator = View.findDrawableById("indicator");
+			var indicator = View.findDrawableById("indicator") as WatchUi.Text;
 			switch(aqiValue.get("provider")) {
 			case 1:
 				indicator.setText("AirNow");
@@ -213,12 +225,15 @@ class AQI_DataFieldView extends WatchUi.DataField {
 				break;
 			}
 		}
+		if (temperatureDrawable != null && temperatureValue != null) {
+			temperatureDrawable.setText(temperatureValue.toString()+"F");
+		}
+		var version = View.findDrawableById("version") as WatchUi.Text;
         if (me.displayVersion) {
         	var now = Time.now();
-        	View.findDrawableById("version").setText(Rez.Strings.Version);
+        	version.setText(Rez.Strings.Version);
         	me.displayVersion = now.subtract(initialTime).value() < secondsToDisplayVersion;
     	} else {
-    		var version = View.findDrawableById("version");
         	version.setBackgroundColor(Graphics.COLOR_TRANSPARENT);
         	version.setText("");
 		}    	
