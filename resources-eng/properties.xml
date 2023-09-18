@@ -4,7 +4,7 @@
     	<property id="enableNotifications" type="boolean">true</property>
     	<property id="aqiProvider" type="number">1</property>
     	<property id="zerosForNoData" type="boolean">false</property>
-    	<property id="email" type="string">--</property>
+    	<property id="email" type="string">foo@bar.com</property>
     </properties>
     
        <settings>
