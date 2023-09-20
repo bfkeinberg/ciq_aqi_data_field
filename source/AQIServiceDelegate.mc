@@ -106,8 +106,6 @@ class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
            :responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON
        };
 
-       var responseCallback = method(:onReceive);                  // set responseCallback to
-                                                                   // onReceive() method
        // Make the Communications.makeWebRequest() call
        Communications.makeWebRequest(url, params, options, method(:onReceive));
   }      

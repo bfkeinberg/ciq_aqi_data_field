@@ -14,8 +14,8 @@
     <layout id="WiderLayout">
         <drawable class="Background" />
         <label id="label" x="center" y="center" color="Graphics.COLOR_LT_GRAY" justification="Graphics.TEXT_JUSTIFY_CENTER" font="Graphics.FONT_TINY" />
-        <label id="value" x="right" y="center" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_RIGHT" font="Graphics.FONT_LARGE" />
-        <label id="temperature" x="left" y="center" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_LARGE" />
+        <label id="value" x="right" y="center" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_CENTER" font="Graphics.FONT_LARGE" />
+        <label id="temperature" x="left" y="center" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_CENTER" font="Graphics.FONT_LARGE" />
         <label id="indicator" x="left" y="bottom" color="Graphics.COLOR_PURPLE" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_XTINY" />
         <label
         	id="version" x="center" y="center"

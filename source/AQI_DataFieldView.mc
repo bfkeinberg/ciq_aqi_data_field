@@ -55,7 +55,7 @@ class AQI_DataFieldView extends WatchUi.DataField {
             View.setLayout(Rez.Layouts.BottomRightLayout(dc));
 
         // Use the generic, centered layout
-		System.println("dc width is " + dc.getWidth());
+		// System.println("dc width is " + dc.getWidth());
 		} else if (dc.getWidth() > 140) {
 			View.setLayout(Rez.Layouts.WiderLayout(dc));
         } else {
