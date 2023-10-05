@@ -5,11 +5,12 @@ using Toybox.System;
 using Toybox.FitContributor;
 using Toybox.Application;
 using Toybox.Time;
+using Toybox.Math;
 
 class AQI_DataFieldView extends WatchUi.DataField {
 
     hidden var aqiValue;
-	hidden var temperatureValue;
+	// hidden var temperatureValue;
     const particulateValue = "PM2.5";
     const ozoneValue = "O3";
 	var enableNotifications = false;
@@ -76,7 +77,7 @@ class AQI_DataFieldView extends WatchUi.DataField {
     // guarantee that compute() will be called before onUpdate().
     function compute(info) {
     	aqiValue = aqiData;
-		temperatureValue = temperatureField;
+		// temperatureValue = temperatureField;
     }
 
     // Display the value you computed here. This will be called
@@ -226,7 +227,13 @@ class AQI_DataFieldView extends WatchUi.DataField {
 			}
 		}
 		if (temperatureDrawable != null && temperatureValue != null) {
-			temperatureDrawable.setText(temperatureValue.toString()+"F");
+			var mySettings = System.getDeviceSettings();
+			var workingTemperature = temperatureValue;
+			if (mySettings.temperatureUnits == System.UNIT_METRIC)
+			{
+				workingTemperature = Math.round((((temperatureValue - 32) * 5) / 9));
+			}
+			temperatureDrawable.setText(workingTemperature.toString());
 		}
 		var version = View.findDrawableById("version") as WatchUi.Text;
         if (me.displayVersion) {
