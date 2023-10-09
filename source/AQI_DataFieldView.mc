@@ -107,7 +107,7 @@ class AQI_DataFieldView extends WatchUi.DataField {
 		var selectedValue = displayPm2_5 ? particulateValue : ozoneValue;
         if (aqiValue != null && aqiValue.hasKey(selectedValue) && aqiValue.get(selectedValue) != null) {
         	currentAqi = aqiValue.get(selectedValue);
-        	value.setText(currentAqi.toString());
+        	value.setText(Math.round(currentAqi).toString());
     	} else {
 			if (aqiValue != null && aqiValue.get("error") != null) {
 				background.setColor(Graphics.COLOR_RED);
