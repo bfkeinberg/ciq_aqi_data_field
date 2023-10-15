@@ -16,7 +16,7 @@ class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
 	  	}
 
 	function onTemporalEvent() {
-    	var now=Toybox.System.getClockTime();	
+    	// var now=Toybox.System.getClockTime();	
         // var ts=now.hour+":"+now.min.format("%02d");    
     	// System.println("onTemporalEvent: "+ts);
     	requestCurrentAqi();	
