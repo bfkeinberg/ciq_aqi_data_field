@@ -5,6 +5,7 @@
     	<property id="aqiProvider" type="number">1</property>
     	<property id="zerosForNoData" type="boolean">false</property>
     	<property id="email" type="string">foo@bar.com</property>
+		<property id="tempAlways" type="boolean">false</property>
     </properties>
     
        <settings>
@@ -26,6 +27,8 @@
 		</setting>
 		<setting propertyKey="@Properties.email" title="@Strings.EmailTitle" prompt="@Strings.EmailPrompt" helpUrl="https://www.randoplan.com/aqi">
 			<settingConfig type="email"></settingConfig>
+		</setting>
+		<setting propertyKey="@Properties.tempAlways" title="@Strings.TemperatureAlways"><settingConfig type="boolean" />
 		</setting>
        </settings>
 	

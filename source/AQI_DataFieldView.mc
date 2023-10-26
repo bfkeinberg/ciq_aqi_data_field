@@ -54,9 +54,9 @@ class AQI_DataFieldView extends WatchUi.DataField {
         // Bottom right quadrant so we'll use the bottom right layout
         } else if (obscurityFlags == (OBSCURE_BOTTOM | OBSCURE_RIGHT)) {
             View.setLayout(Rez.Layouts.BottomRightLayout(dc));
-
         // Use the generic, centered layout
-		// System.println("dc width is " + dc.getWidth());
+		} else if (Application.Properties.getValue("tempAlways") && dc.getWidth() <= 140) {
+			View.setLayout(Rez.Layouts.SmallLayoutWithTemp(dc));
 		} else if (dc.getWidth() > 140) {
 			View.setLayout(Rez.Layouts.WiderLayout(dc));
         } else {
