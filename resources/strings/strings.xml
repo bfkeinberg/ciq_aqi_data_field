@@ -2,6 +2,7 @@
     <string id="AppName">AirQualityIndex</string>
 
     <string id="label">AQI (PM 2.5)</string>
+    <string id="shortLabel">AQI</string>
     <string id="ozoneLabel">Ozone</string>
     <string id="refreshIntervalTitle">Refresh Interval in seconds</string>
 	<string id="enableNotificationsTitle">Notify on poor air quality</string>    
@@ -15,6 +16,6 @@
 	<string id="AqiUnitsLabel">PM2.5</string>
 	<string id="EmailTitle">Email address</string>
 	<string id="EmailPrompt">Your email address</string>
-	<string id="Version">Version 1.16.1</string>
+	<string id="Version">Version 1.17.0</string>
 	<string id="TemperatureAlways">Display temperature regardless of field size</string>
 </strings>

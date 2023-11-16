@@ -20,6 +20,7 @@ class AQI_DataFieldView extends WatchUi.DataField {
 	var displayVersion = true;
 	const secondsToDisplayVersion = 14;
 	var initialTime;
+	var showShortLabel;
 	
     function initialize(notifications) {
         DataField.initialize();
@@ -31,12 +32,14 @@ class AQI_DataFieldView extends WatchUi.DataField {
   		} catch (ex) {
   			System.println("could not create aqiField " + ex);
   		}
+		showShortLabel = false;
   		initialTime = Time.now();
     }
 
     // Set your layout here. Anytime the size of obscurity of
     // the draw context is changed this will be called.
     function onLayout(dc) {
+		showShortLabel = false;
         var obscurityFlags = DataField.getObscurityFlags();
 
         // Top left quadrant so we'll use the top left layout
@@ -57,6 +60,7 @@ class AQI_DataFieldView extends WatchUi.DataField {
         // Use the generic, centered layout
 		} else if (Application.Properties.getValue("tempAlways") && dc.getWidth() <= 140) {
 			View.setLayout(Rez.Layouts.SmallLayoutWithTemp(dc));
+			showShortLabel = true;
 		} else if (dc.getWidth() > 140) {
 			View.setLayout(Rez.Layouts.WiderLayout(dc));
         } else {
@@ -67,7 +71,7 @@ class AQI_DataFieldView extends WatchUi.DataField {
             valueView.locY = valueView.locY + 7;
         }
 		var label = View.findDrawableById("label") as WatchUi.Text;
-        label.setText(displayPm2_5 ? Rez.Strings.label : Rez.Strings.ozoneLabel);
+		label.setText(displayPm2_5 ? (showShortLabel ? Rez.Strings.shortLabel : Rez.Strings.label) : Rez.Strings.ozoneLabel);
         return;
     }
 
@@ -103,7 +107,7 @@ class AQI_DataFieldView extends WatchUi.DataField {
 		    	}
 	    	}
     	}
-        label.setText(displayPm2_5 ? Rez.Strings.label : Rez.Strings.ozoneLabel);
+        label.setText(displayPm2_5 ? (showShortLabel ? Rez.Strings.shortLabel : Rez.Strings.label) : Rez.Strings.ozoneLabel);
 		var selectedValue = displayPm2_5 ? particulateValue : ozoneValue;
         if (aqiValue != null && aqiValue.hasKey(selectedValue) && aqiValue.get(selectedValue) != null) {
         	currentAqi = aqiValue.get(selectedValue);
