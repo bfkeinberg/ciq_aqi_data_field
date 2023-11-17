@@ -16,6 +16,6 @@
 	<string id="AqiUnitsLabel">PM2.5</string>
 	<string id="EmailTitle">Email address</string>
 	<string id="EmailPrompt">Your email address</string>
-	<string id="Version">Version 1.17.0</string>
+	<string id="Version">Version 1.17.1</string>
 	<string id="TemperatureAlways">Display temperature regardless of field size</string>
 </strings>

@@ -72,6 +72,10 @@ class AQI_DataFieldView extends WatchUi.DataField {
         }
 		var label = View.findDrawableById("label") as WatchUi.Text;
 		label.setText(displayPm2_5 ? (showShortLabel ? Rez.Strings.shortLabel : Rez.Strings.label) : Rez.Strings.ozoneLabel);
+		var tempLabel = View.findDrawableById("tempLabel") as WatchUi.Text;
+		if (tempLabel != null) {
+			tempLabel.setText("Temp");
+		}
         return;
     }
 
