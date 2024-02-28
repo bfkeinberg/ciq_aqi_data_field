@@ -58,10 +58,10 @@ class AQI_DataFieldView extends WatchUi.DataField {
         } else if (obscurityFlags == (OBSCURE_BOTTOM | OBSCURE_RIGHT)) {
             View.setLayout(Rez.Layouts.BottomRightLayout(dc));
         // Use the generic, centered layout
-		} else if (Application.Properties.getValue("tempAlways") && dc.getWidth() <= 140) {
+		} else if (Application.Properties.getValue("tempAlways") && dc.getWidth() <= 240) {
 			View.setLayout(Rez.Layouts.SmallLayoutWithTemp(dc));
 			showShortLabel = true;
-		} else if (dc.getWidth() > 140) {
+		} else if (dc.getWidth() > 240) {
 			View.setLayout(Rez.Layouts.WiderLayout(dc));
         } else {
             View.setLayout(Rez.Layouts.MainLayout(dc));
@@ -115,12 +115,12 @@ class AQI_DataFieldView extends WatchUi.DataField {
 		var selectedValue = displayPm2_5 ? particulateValue : ozoneValue;
         if (aqiValue != null && aqiValue.hasKey(selectedValue) && aqiValue.get(selectedValue) != null) {
         	currentAqi = aqiValue.get(selectedValue);
-        	value.setText(Math.round(currentAqi).toString());
+        	value.setText(Math.round(currentAqi).toString().substring(0, 4));
     	} else {
 			if (aqiValue != null && aqiValue.get("error") != null) {
 				background.setColor(Graphics.COLOR_RED);
 				value.setColor(Graphics.COLOR_WHITE);
-				value.setText(aqiValue.get("error").toString());
+				value.setText(aqiValue.get("error").toString().substring(0, 4));
 			} else {
 	    		value.setText("N/A");
 			}
@@ -137,7 +137,7 @@ class AQI_DataFieldView extends WatchUi.DataField {
 				} else {
 					background.setColor(Graphics.COLOR_RED);
 					value.setColor(Graphics.COLOR_WHITE);
-					value.setText(aqiValue.get("error").toString());
+					value.setText(aqiValue.get("error").toString().substring(0, 4));
 				}
 				notified = false;
 			}
@@ -177,7 +177,7 @@ class AQI_DataFieldView extends WatchUi.DataField {
 				} else {
 					background.setColor(Graphics.COLOR_RED);
 					value.setColor(Graphics.COLOR_WHITE);
-					value.setText(aqiValue.get("error").toString());
+					value.setText(aqiValue.get("error").toString().substring(0, 4));
 				}
 				notified = false;
 			}
@@ -236,7 +236,7 @@ class AQI_DataFieldView extends WatchUi.DataField {
 		}
 		if (temperatureDrawable != null && temperatureValue != null) {
 			var mySettings = System.getDeviceSettings();
-			var workingTemperature = temperatureValue;
+			var workingTemperature = Math.round(temperatureValue);
 			if (mySettings.temperatureUnits == System.UNIT_METRIC)
 			{
 				workingTemperature = Math.round((((temperatureValue - 32) * 5) / 9));
