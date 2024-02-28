@@ -58,10 +58,10 @@ class AQI_DataFieldView extends WatchUi.DataField {
         } else if (obscurityFlags == (OBSCURE_BOTTOM | OBSCURE_RIGHT)) {
             View.setLayout(Rez.Layouts.BottomRightLayout(dc));
         // Use the generic, centered layout
-		} else if (Application.Properties.getValue("tempAlways") && dc.getWidth() <= 240) {
+		} else if (Application.Properties.getValue("tempAlways") && dc.getWidth() <= 280) {
 			View.setLayout(Rez.Layouts.SmallLayoutWithTemp(dc));
 			showShortLabel = true;
-		} else if (dc.getWidth() > 240) {
+		} else if (dc.getWidth() > 280) {
 			View.setLayout(Rez.Layouts.WiderLayout(dc));
         } else {
             View.setLayout(Rez.Layouts.MainLayout(dc));
