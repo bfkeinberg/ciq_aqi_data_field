@@ -10,7 +10,6 @@ using Toybox.Math;
 class AQI_DataFieldView extends WatchUi.DataField {
 
     hidden var aqiValue;
-	// hidden var temperatureValue;
     const particulateValue = "PM2.5";
     const ozoneValue = "O3";
 	var enableNotifications = false;
@@ -41,7 +40,7 @@ class AQI_DataFieldView extends WatchUi.DataField {
     function onLayout(dc) {
 		showShortLabel = false;
         var obscurityFlags = DataField.getObscurityFlags();
-
+		var screenShape = System.getDeviceSettings().screenShape;
         // Top left quadrant so we'll use the top left layout
         if (obscurityFlags == (OBSCURE_TOP | OBSCURE_LEFT)) {
             View.setLayout(Rez.Layouts.TopLeftLayout(dc));
@@ -63,13 +62,11 @@ class AQI_DataFieldView extends WatchUi.DataField {
 			showShortLabel = true;
 		} else if (dc.getWidth() > 280) {
 			View.setLayout(Rez.Layouts.WiderLayout(dc));
-        } else {
+        } else if (screenShape == System.SCREEN_SHAPE_RECTANGLE) {
             View.setLayout(Rez.Layouts.MainLayout(dc));
-            var labelView = View.findDrawableById("label");
-            labelView.locY = labelView.locY - 16;
-            var valueView = View.findDrawableById("value");
-            valueView.locY = valueView.locY + 7;
-        }
+        } else {
+			View.setLayout(Rez.Layouts.MainRoundLayout(dc));
+		}
 		var label = View.findDrawableById("label") as WatchUi.Text;
 		label.setText(displayPm2_5 ? (showShortLabel ? Rez.Strings.shortLabel : Rez.Strings.label) : Rez.Strings.ozoneLabel);
 		var tempLabel = View.findDrawableById("tempLabel") as WatchUi.Text;
@@ -85,7 +82,6 @@ class AQI_DataFieldView extends WatchUi.DataField {
     // guarantee that compute() will be called before onUpdate().
     function compute(info) {
     	aqiValue = aqiData;
-		// temperatureValue = temperatureField;
     }
 
     // Display the value you computed here. This will be called
