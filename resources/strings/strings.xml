@@ -14,6 +14,9 @@
 	<string id="AqiChartLabel">AQI</string>
 	<string id="AqiDataLabel">AQI (PM2.5)</string>
 	<string id="AqiUnitsLabel">PM2.5</string>
+	<string id="TemperatureChartLabel">Temperature</string>
+	<string id="TemperatureDataLabel">Degrees</string>
+	<string id="TemperatureUnitsLabel">F</string>
 	<string id="EmailTitle">Email address</string>
 	<string id="EmailPrompt">Your email address</string>
 	<string id="Version">Version 1.17.3</string>

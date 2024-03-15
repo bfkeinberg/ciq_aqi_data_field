@@ -3,4 +3,8 @@
 	sortOrder = "0" precision="0"
     chartTitle="@Strings.AqiChartLabel" dataLabel="@Strings.AqiDataLabel"
     unitLabel="@Strings.AqiUnitsLabel" fillColor="#FF0000" />
+<fitField id="1" displayInChart="true"
+	sortOrder = "1" precision="0"
+    chartTitle="@Strings.TemperatureChartLabel" dataLabel="@Strings.TemperatureDataLabel"
+    unitLabel="@Strings.TemperatureUnitsLabel" fillColor="#FF0000" />    
 </fitContributions>

@@ -9,6 +9,7 @@ using Toybox.Position;
 
 var aqiData = null;
 var aqiField = null;
+var temperatureField = null;
 var temperatureValue = null;
 const intervalKey = "refreshInterval";
 
@@ -111,6 +112,9 @@ class AQI_DataFieldApp extends Application.AppBase {
 					}
         		}
         		aqiData = data;
+				if (temperatureField != null && temperatureValue != null) {
+					temperatureField.setData(temperatureValue);
+				}
     		} else if (data.hasKey("error")) {
     			if (Application.Properties.getValue("zerosForNoData") && aqiField != null) {
     				aqiField.setData(0);

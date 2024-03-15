@@ -16,6 +16,7 @@ class AQI_DataFieldView extends WatchUi.DataField {
 	var notified = false;
 	var displayPm2_5 = true;
 	const AQI_FIELD_ID = 0;
+	const TEMPERATURE_FIELD_ID = 1;
 	var displayVersion = true;
 	const secondsToDisplayVersion = 14;
 	var initialTime;
@@ -28,8 +29,10 @@ class AQI_DataFieldView extends WatchUi.DataField {
         try {
 		  	aqiField = createField("AQI", AQI_FIELD_ID, FitContributor.DATA_TYPE_UINT32,
 		  		{:mesgType=>FitContributor.MESG_TYPE_RECORD, :units=>"PM2.5"});
+			temperatureField = createField("Temperature", TEMPERATURE_FIELD_ID, FitContributor.DATA_TYPE_SINT32, 
+				{:mesgType=>FitContributor.MESG_TYPE_RECORD, :units=>"F"});
   		} catch (ex) {
-  			System.println("could not create aqiField " + ex);
+  			System.println("could not create fit file fields " + ex);
   		}
 		showShortLabel = false;
   		initialTime = Time.now();
@@ -130,6 +133,9 @@ class AQI_DataFieldView extends WatchUi.DataField {
 			if (aqiValue != null && aqiValue.hasKey("error")) {
 				if (aqiValue.hasKey("hideError")) {
 					value.setColor(Graphics.COLOR_LT_GRAY);
+					if (temperatureDrawable != null) {
+						temperatureDrawable.setColor(Graphics.COLOR_LT_GRAY);
+					}
 				} else {
 					background.setColor(Graphics.COLOR_RED);
 					value.setColor(Graphics.COLOR_WHITE);
@@ -170,6 +176,9 @@ class AQI_DataFieldView extends WatchUi.DataField {
 			if (aqiValue != null && aqiValue.hasKey("error")) {
 				if (aqiValue.hasKey("hideError")) {
 					value.setColor(Graphics.COLOR_LT_GRAY);
+					if (temperatureDrawable != null) {
+						temperatureDrawable.setColor(Graphics.COLOR_LT_GRAY);
+					}
 				} else {
 					background.setColor(Graphics.COLOR_RED);
 					value.setColor(Graphics.COLOR_WHITE);
