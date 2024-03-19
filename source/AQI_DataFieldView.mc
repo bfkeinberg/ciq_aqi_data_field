@@ -38,6 +38,8 @@ class AQI_DataFieldView extends WatchUi.DataField {
   		initialTime = Time.now();
     }
 
+	const smallScreenWidth = 320;
+
     // Set your layout here. Anytime the size of obscurity of
     // the draw context is changed this will be called.
     function onLayout(dc) {
@@ -60,10 +62,10 @@ class AQI_DataFieldView extends WatchUi.DataField {
         } else if (obscurityFlags == (OBSCURE_BOTTOM | OBSCURE_RIGHT)) {
             View.setLayout(Rez.Layouts.BottomRightLayout(dc));
         // Use the generic, centered layout
-		} else if (Application.Properties.getValue("tempAlways") && dc.getWidth() <= 280) {
+		} else if (Application.Properties.getValue("tempAlways") && dc.getWidth() <= smallScreenWidth) {
 			View.setLayout(Rez.Layouts.SmallLayoutWithTemp(dc));
 			showShortLabel = true;
-		} else if (dc.getWidth() > 280) {
+		} else if (dc.getWidth() > smallScreenWidth) {
 			View.setLayout(Rez.Layouts.WiderLayout(dc));
         } else if (screenShape == System.SCREEN_SHAPE_RECTANGLE) {
             View.setLayout(Rez.Layouts.MainLayout(dc));
