@@ -18,7 +18,7 @@ class AQI_DataFieldView extends WatchUi.DataField {
 	const AQI_FIELD_ID = 0;
 	const TEMPERATURE_FIELD_ID = 1;
 	var displayVersion = true;
-	const secondsToDisplayVersion = 14;
+	const secondsToDisplayVersion = 1;//14;
 	var initialTime;
 	var showShortLabel;
 	
@@ -38,12 +38,19 @@ class AQI_DataFieldView extends WatchUi.DataField {
   		initialTime = Time.now();
     }
 
-	const smallScreenWidth = 320;
+	const sizeToShowLongLabel = 320;
+	const sizeToShowTemp = 280;
 
     // Set your layout here. Anytime the size of obscurity of
     // the draw context is changed this will be called.
     function onLayout(dc) {
-		showShortLabel = false;
+		var width = dc.getWidth();
+		var height = dc.getHeight();
+		if (width < sizeToShowLongLabel) {
+			showShortLabel = true;
+		} else {
+			showShortLabel = false;
+		}
         var obscurityFlags = DataField.getObscurityFlags();
 		var screenShape = System.getDeviceSettings().screenShape;
         // Top left quadrant so we'll use the top left layout
@@ -62,10 +69,9 @@ class AQI_DataFieldView extends WatchUi.DataField {
         } else if (obscurityFlags == (OBSCURE_BOTTOM | OBSCURE_RIGHT)) {
             View.setLayout(Rez.Layouts.BottomRightLayout(dc));
         // Use the generic, centered layout
-		} else if (Application.Properties.getValue("tempAlways") && dc.getWidth() <= smallScreenWidth) {
+		} else if (Application.Properties.getValue("tempAlways") && width <= sizeToShowTemp) {
 			View.setLayout(Rez.Layouts.SmallLayoutWithTemp(dc));
-			showShortLabel = true;
-		} else if (dc.getWidth() > smallScreenWidth) {
+		} else if (width > sizeToShowTemp) {
 			View.setLayout(Rez.Layouts.WiderLayout(dc));
         } else if (screenShape == System.SCREEN_SHAPE_RECTANGLE) {
             View.setLayout(Rez.Layouts.MainLayout(dc));
@@ -94,13 +100,16 @@ class AQI_DataFieldView extends WatchUi.DataField {
     function onUpdate(dc) {
     	dc.clear();
         var label = View.findDrawableById("label") as WatchUi.Text;
-    
+		
         // Set the background color
 		var background = View.findDrawableById("Background") as WatchUi.Text;
         background.setColor(getBackgroundColor());
 
         // Set the foreground color and value
         var value = View.findDrawableById("value") as WatchUi.Text;
+		value.setVisible(true);
+		var errorDrawable = View.findDrawableById("errorValue") as WatchUi.Text;
+		errorDrawable.setVisible(false);
 		var temperatureDrawable = View.findDrawableById("temperature") as WatchUi.Text;
         var currentAqi = null;
         // if the user has toggled to display ozone but we don't have a value for it in the results
@@ -123,7 +132,9 @@ class AQI_DataFieldView extends WatchUi.DataField {
 				value.setColor(Graphics.COLOR_WHITE);
 				value.setText(aqiValue.get("error").toString().substring(0, 4));
 			} else {
-	    		value.setText("N/A");
+	    		value.setVisible(false);
+		        errorDrawable.setText("N/A");
+				errorDrawable.setVisible(true);
 			}
 		}
 		if (getBackgroundColor() == Graphics.COLOR_WHITE) {
@@ -218,9 +229,11 @@ class AQI_DataFieldView extends WatchUi.DataField {
         } else {
         	if (getBackgroundColor() == Graphics.COLOR_BLACK) {
 	            value.setColor(Graphics.COLOR_WHITE);
+				errorDrawable.setColor(Graphics.COLOR_WHITE);
 	            label.setColor(Graphics.COLOR_WHITE);
         	} else {
 	            value.setColor(Graphics.COLOR_BLACK);
+				errorDrawable.setColor(Graphics.COLOR_BLACK);
 	            label.setColor(Graphics.COLOR_BLACK);
             }
         }

@@ -4,6 +4,7 @@
         <drawable class="Background" />
         <label id="label" x="left" y="bottom" color="Graphics.COLOR_LT_GRAY" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_TINY" />
         <label id="value" x="center" y="center" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_CENTER" font="Graphics.FONT_NUMBER_MILD" />
+        <label id="errorValue" x="center" y="center" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_CENTER" font="Graphics.FONT_SMALL" visible="false"/>
         <label id="indicator" x="right" y="bottom" color="Graphics.COLOR_PURPLE" justification="Graphics.TEXT_JUSTIFY_RIGHT" font="Graphics.FONT_XTINY" />
         <label
         	id="version" x="center" y="center"
@@ -15,6 +16,8 @@
         <drawable class="Background" />
         <text-area width="fill" height="15%" id="label" x="center" y="70%" color="Graphics.COLOR_LT_GRAY" justification="Graphics.TEXT_JUSTIFY_CENTER" font="Graphics.FONT_TINY" />
         <label id="value" x="center" y="center" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_CENTER" font="Graphics.FONT_NUMBER_MILD" />
+        <label id="temperature" x="left" y="center" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_NUMBER_MILD" />
+        <label id="errorValue" x="center" y="center" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_CENTER" font="Graphics.FONT_SMALL" visible="false"/>
         <label id="indicator" x="center" y="90%" color="Graphics.COLOR_PURPLE" justification="Graphics.TEXT_JUSTIFY_CENTER" font="Graphics.FONT_XTINY" />
         <label
         	id="version" x="center" y="center"
@@ -25,8 +28,9 @@
     <layout id="WiderLayout">
         <drawable class="Background" />
         <label id="temperature" x="10%" y="center" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_NUMBER_MEDIUM" />
-        <label id="label" x="center" y="center" color="Graphics.COLOR_LT_GRAY" justification="Graphics.TEXT_JUSTIFY_CENTER" font="Graphics.FONT_SMALL" />
+        <label id="label" x="center" y="center" color="Graphics.COLOR_LT_GRAY" justification="Graphics.TEXT_JUSTIFY_CENTER" font="Graphics.FONT_SYSTEM_SMALL" />
         <label id="value" x="88%" y="center" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_RIGHT" font="Graphics.FONT_NUMBER_MEDIUM" />
+        <label id="errorValue" x="88%" y="center" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_RIGHT" font="Graphics.FONT_SMALL" visible="false"/>
         <label id="tempLabel" x="left" y="bottom" color="Graphics.COLOR_PURPLE" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_TINY" />
         <label id="indicator" x="right" y="bottom" color="Graphics.COLOR_PURPLE" justification="Graphics.TEXT_JUSTIFY_RIGHT" font="Graphics.FONT_TINY" />
         <label
@@ -40,6 +44,7 @@
         <label id="temperature" x="6%" y="center" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_NUMBER_MILD" />
         <label id="label" x="center" y="center" color="Graphics.COLOR_LT_GRAY" justification="Graphics.TEXT_JUSTIFY_CENTER" font="Graphics.FONT_SYSTEM_MEDIUM" />
         <label id="value" x="94%" y="center" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_RIGHT" font="Graphics.FONT_NUMBER_MILD" />
+        <label id="errorValue" x="94%" y="center" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_RIGHT" font="Graphics.FONT_SMALL" visible="false"/>
         <label id="tempLabel" x="left" y="bottom" color="Graphics.COLOR_PURPLE" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_TINY" />
         <label id="indicator" x="right" y="bottom" color="Graphics.COLOR_PURPLE" justification="Graphics.TEXT_JUSTIFY_RIGHT" font="Graphics.FONT_TINY" />
         <label
