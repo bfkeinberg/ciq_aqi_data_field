@@ -18,7 +18,7 @@ class AQI_DataFieldView extends WatchUi.DataField {
 	const AQI_FIELD_ID = 0;
 	const TEMPERATURE_FIELD_ID = 1;
 	var displayVersion = true;
-	const secondsToDisplayVersion = 1;//14;
+	const secondsToDisplayVersion = 14;
 	var initialTime;
 	var showShortLabel;
 	
@@ -45,7 +45,6 @@ class AQI_DataFieldView extends WatchUi.DataField {
     // the draw context is changed this will be called.
     function onLayout(dc) {
 		var width = dc.getWidth();
-		var height = dc.getHeight();
 		if (width < sizeToShowLongLabel) {
 			showShortLabel = true;
 		} else {
