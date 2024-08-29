@@ -13,6 +13,7 @@ var temperatureField = null;
 var temperatureValue = null;
 const intervalKey = "refreshInterval";
 
+(:background)
 class AQI_DataFieldApp extends Application.AppBase {
 
 	const myKey = "aqidata";
