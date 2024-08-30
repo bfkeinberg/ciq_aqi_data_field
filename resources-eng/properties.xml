@@ -6,9 +6,10 @@
     	<property id="zerosForNoData" type="boolean">false</property>
     	<property id="email" type="string">foo@bar.com</property>
 		<property id="tempAlways" type="boolean">false</property>
+		<property id="purpleAirEpaCorrection" type="boolean">true</property>
     </properties>
     
-       <settings>
+	<settings>
         <setting propertyKey="@Properties.refreshInterval" title="@Strings.refreshIntervalTitle">
             <settingConfig type="numeric" min="300" max ="3600" />
 		</setting>
@@ -30,6 +31,9 @@
 		</setting>
 		<setting propertyKey="@Properties.tempAlways" title="@Strings.TemperatureAlways"><settingConfig type="boolean" />
 		</setting>
-       </settings>
+        <setting propertyKey="@Properties.purpleAirEpaCorrection" title="@Strings.PurpleAirCorrection">
+            <settingConfig type="boolean" />
+		</setting>				
+	</settings>
 	
 </resources>    
