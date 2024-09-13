@@ -28,7 +28,12 @@
     <layout id="WiderLayout">
         <drawable class="Background" />
         <label id="temperature" x="10%" y="center" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_NUMBER_MEDIUM" />
-        <label id="label" x="center" y="center" color="Graphics.COLOR_LT_GRAY" justification="Graphics.TEXT_JUSTIFY_CENTER" font="Graphics.FONT_SYSTEM_SMALL" />
+        <text-area id="label" width="80" height="30%" x="center" y="center" color="Graphics.COLOR_LT_GRAY" justification="Graphics.TEXT_JUSTIFY_CENTER">
+            <fonts>
+                <font>Graphics.FONT_SYSTEM_MEDIUM</font>
+                <font>Graphics.FONT_SYSTEM_SMALL</font>
+            </fonts>
+        </text-area>
         <label id="value" x="88%" y="center" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_RIGHT" font="Graphics.FONT_NUMBER_MEDIUM" />
         <label id="errorValue" x="88%" y="center" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_RIGHT" font="Graphics.FONT_SMALL" visible="false"/>
         <label id="tempLabel" x="left" y="bottom" color="Graphics.COLOR_PURPLE" justification="Graphics.TEXT_JUSTIFY_LEFT" font="Graphics.FONT_TINY" />
