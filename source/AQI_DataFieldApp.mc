@@ -103,7 +103,12 @@ class AQI_DataFieldApp extends Application.AppBase {
         	if (data.hasKey("PM2.5")) {
         		if (aqiField != null) {
 	        		if (fieldIsDirty || aqiData.get(pm2_5) != data.get(pm2_5)) {
-	        			if (data.get(pm2_5) == null || !(data.get(pm2_5) instanceOf Toybox.Lang.Number)) {
+						var pm_2_5_value = data.get(pm2_5);
+						var pm_2_5_is_number = false;
+						if (pm_2_5_value instanceof Toybox.Lang.Number) {
+							pm_2_5_is_number = true;
+						}
+	        			if (pm_2_5_value == null || !pm_2_5_is_number) {
 	        				aqiField.setData(0);
 	        			} else {
 		    				//System.println("About to set field to " + data.get(pm2_5));
@@ -141,10 +146,8 @@ class AQI_DataFieldApp extends Application.AppBase {
 				}
 			}
 			if (Application has :Storage) {
-				try {
-    	    		Application.Storage.setValue(myKey, aqiData);
-				} catch (err) {
-					System.printlm("Caught error storing value " + err)
+				if (aqiData instanceof Dictionary) {
+					Application.Storage.setValue("aqidata", aqiData);
 				}
     		}
     	}
