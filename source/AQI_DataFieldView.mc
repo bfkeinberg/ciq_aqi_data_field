@@ -108,7 +108,9 @@ class AQI_DataFieldView extends WatchUi.DataField {
         var value = View.findDrawableById("value") as WatchUi.Text;
 		value.setVisible(true);
 		var errorDrawable = View.findDrawableById("errorValue") as WatchUi.Text;
-		errorDrawable.setVisible(false);
+		if (errorDrawable != null && errorDrawable has :setVisible) {
+			errorDrawable.setVisible(false);
+		}
 		var temperatureDrawable = View.findDrawableById("temperature") as WatchUi.Text;
         var currentAqi = null;
         // if the user has toggled to display ozone but we don't have a value for it in the results
