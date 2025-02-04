@@ -133,9 +133,13 @@ class AQI_DataFieldView extends WatchUi.DataField {
 				value.setColor(Graphics.COLOR_WHITE);
 				value.setText(aqiValue.get("error").toString().substring(0, 4));
 			} else {
-	    		value.setVisible(false);
-		        errorDrawable.setText("N/A");
-				errorDrawable.setVisible(true);
+				if (errorDrawable != null) {
+					value.setVisible(false);
+					errorDrawable.setText("N/A");
+					errorDrawable.setVisible(true);
+				} else {
+					value.setText("N/A");
+				}
 			}
 		}
 		if (getBackgroundColor() == Graphics.COLOR_WHITE) {
