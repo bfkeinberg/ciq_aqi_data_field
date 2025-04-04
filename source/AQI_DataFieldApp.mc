@@ -37,13 +37,12 @@ class AQI_DataFieldApp extends Application.AppBase {
 	}
 	
 	function readKeyInt(myApp,key,thisDefault) {
-	    var value = myApp.getProperty(key) as Lang.Number;
-	    if(value == null || !(value instanceof Number)) {
-	        if(value != null) {
-	            value = value.toNumber();
-	        } else {
-	            value = thisDefault;
-	        }
+	    var value = myApp.getProperty(key);
+		if (value == null) {
+			return thisDefault;
+		}
+	    if (!(value instanceof Number)) {
+			return value.toNumber();
 	    }
 	    return value;
 	}

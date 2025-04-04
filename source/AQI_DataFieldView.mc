@@ -126,7 +126,9 @@ class AQI_DataFieldView extends WatchUi.DataField {
 		var selectedValue = displayPm2_5 ? particulateValue : ozoneValue;
         if (aqiValue != null && aqiValue.hasKey(selectedValue) && aqiValue.get(selectedValue) != null) {
         	currentAqi = aqiValue.get(selectedValue);
-        	value.setText(Math.round(currentAqi).toString().substring(0, 4));
+			if (currentAqi instanceof Lang.Number) {
+	        	value.setText(Math.round(currentAqi).toString().substring(0, 4));
+			}
     	} else {
 			if (aqiValue != null && aqiValue.get("error") != null) {
 				background.setColor(Graphics.COLOR_RED);
@@ -234,7 +236,9 @@ class AQI_DataFieldView extends WatchUi.DataField {
         } else {
         	if (getBackgroundColor() == Graphics.COLOR_BLACK) {
 	            value.setColor(Graphics.COLOR_WHITE);
-				errorDrawable.setColor(Graphics.COLOR_WHITE);
+				if (errorDrawable != null && errorDrawable instanceof WatchUi.Text) {
+					errorDrawable.setColor(Graphics.COLOR_WHITE);
+				}
 	            label.setColor(Graphics.COLOR_WHITE);
         	} else {
 	            value.setColor(Graphics.COLOR_BLACK);
