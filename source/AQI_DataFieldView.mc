@@ -65,18 +65,21 @@ class AQI_DataFieldView extends WatchUi.DataField {
             View.setLayout(Rez.Layouts.BottomLeftLayout(dc));
 
         // Bottom right quadrant so we'll use the bottom right layout
-        } else if (obscurityFlags == (OBSCURE_BOTTOM | OBSCURE_RIGHT)) {
+        } else if (obscurityFlags == (OBSCURE_BOTTOM | OBSCURE_RIGHT)) { 
             View.setLayout(Rez.Layouts.BottomRightLayout(dc));
         // Use the generic, centered layout
 		} else if (Application.Properties.getValue("tempAlways") && width <= sizeToShowTemp) {
 			View.setLayout(Rez.Layouts.SmallLayoutWithTemp(dc));
-		} else if (width > sizeToShowTemp) {
-			View.setLayout(Rez.Layouts.WiderLayout(dc));
-        } else if (screenShape == System.SCREEN_SHAPE_RECTANGLE) {
-            View.setLayout(Rez.Layouts.MainLayout(dc));
-        } else {
-			View.setLayout(Rez.Layouts.MainRoundLayout(dc));
 		}
+		else if (screenShape == System.SCREEN_SHAPE_ROUND) {
+			View.setLayout(Rez.Layouts.MainRoundLayout(dc));
+        } else if (screenShape == System.SCREEN_SHAPE_RECTANGLE) {
+			if (width > sizeToShowTemp) {
+			View.setLayout(Rez.Layouts.WiderLayout(dc));
+			} else {
+	            View.setLayout(Rez.Layouts.MainLayout(dc));
+			}
+        }
 		var label = View.findDrawableById("label") as WatchUi.Text;
 		label.setText(displayPm2_5 ? (showShortLabel ? Rez.Strings.shortLabel : Rez.Strings.label) : Rez.Strings.ozoneLabel);
 		var tempLabel = View.findDrawableById("tempLabel") as WatchUi.Text;
