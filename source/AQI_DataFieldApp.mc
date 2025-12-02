@@ -6,12 +6,15 @@ using Toybox.WatchUi;
 using Toybox.FitContributor;
 import Toybox.Lang;
 using Toybox.Position;
+using KPayApp.KPay as KPay;
 
 var aqiData = null;
 var aqiField = null;
 var temperatureField = null;
 var temperatureValue = null;
 const intervalKey = "refreshInterval";
+
+var kpay as KPay.Core?;
 
 (:background)
 class AQI_DataFieldApp extends Application.AppBase {
@@ -67,13 +70,16 @@ class AQI_DataFieldApp extends Application.AppBase {
     function onStop(state) {
     	if(!inBackground) {
     		Background.deleteTemporalEvent();
-    	}
+        }		
     }
 
     //! Return the initial view of your application here
     function getInitialView() {
     	var view;
     	
+		kpay = new KPay.Core(KPAY_CONFIG);
+		kpay.startPurchase();
+
 		//register for temporal events if they are supported
     	if(Toybox.System has :ServiceDelegate) {
      		Background.registerForTemporalEvent(new Time.Duration(Application.Properties.getValue(intervalKey)));
