@@ -285,8 +285,13 @@ class AQI_DataFieldView extends WatchUi.DataField {
         	version.setText("");
 		}    	
 		
-        // Call parent's onUpdate(dc) to redraw the layout
-        View.onUpdate(dc);
+		if ((kpay as KPayApp.KPay.Core).shouldShowDialog()) {
+            // in case KiezelPay wants to display something, allow it to draw it's dialog
+            (kpay as KPayApp.KPay.Core).drawDialog(dc);
+		} else {
+			// Call parent's onUpdate(dc) to redraw the layout
+			View.onUpdate(dc);
+		}
     }    
 
 }
