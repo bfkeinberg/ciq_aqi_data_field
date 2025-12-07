@@ -1,0 +1,24 @@
+<strings>
+    <string id="AppName">AirQualityIndex</string>
+    <string id="label">AQI (PM 2.5)</string>
+    <string id="shortLabel">AQI</string>
+    <string id="ozoneLabel">Ozone</string>
+    <string id="refreshIntervalTitle">Intervalle de rafraîchissement en secondes</string>
+	<string id="enableNotificationsTitle">Notifier en cas de mauvaise qualité de l&#39;air</string>    
+	<string id="aqiProviderTitle">Fournisseur d&#39;AQI</string>
+	<string id="ZerosInGraphTitle">Enregistrer des zéros lorsqu&#39;aucune donnée n&#39;est disponible</string>
+	<string id="AirNow">EPA AirNow</string>
+	<string id="PurpleAir">Purple Air</string>
+	<string id="IQAir">IQAir</string>
+	<string id="AqiChartLabel">AQI</string>
+	<string id="AqiDataLabel">AQI (PM2.5)</string>
+	<string id="AqiUnitsLabel">PM2.5</string>
+	<string id="TemperatureChartLabel">Température</string>
+	<string id="TemperatureDataLabel">Degrés</string>
+	<string id="TemperatureUnitsLabel">F</string>
+	<string id="EmailTitle">Adresse e&#39;mail</string>
+	<string id="EmailPrompt">Votre adresse e&#39;mail</string>
+	<string id="Version">Version 1.24.1</string>
+	<string id="TemperatureAlways">Afficher la température quel que soit la taille du champ</string>
+	<string id="PurpleAirCorrection">Corriger les données brutes PurpleAir en utilisant la formule de l&#39;EPA américaine</string>
+</strings>

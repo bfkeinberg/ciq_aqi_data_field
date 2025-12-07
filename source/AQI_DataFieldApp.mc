@@ -77,8 +77,11 @@ class AQI_DataFieldApp extends Application.AppBase {
     function getInitialView() {
     	var view;
     	
-		kpay = new KPay.Core(KPAY_CONFIG);
-		kpay.startPurchase();
+		try {
+	 		kpay = new KPay.Core(KPAY_CONFIG);
+		} catch (err) {
+			System.println("Crashed in Kiezel with " + err);
+		}
 
 		//register for temporal events if they are supported
     	if(Toybox.System has :ServiceDelegate) {

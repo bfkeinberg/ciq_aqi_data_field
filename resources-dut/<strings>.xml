@@ -1,0 +1,25 @@
+<strings>
+    <string id="AppName">AirQualityIndex</string>
+
+    <string id="label">AQI (PM 2.5)</string>
+    <string id="shortLabel">AQI</string>
+    <string id="ozoneLabel">Ozon</string>
+    <string id="refreshIntervalTitle">Vernieuwingsinterval in seconden</string>
+    <string id="enableNotificationsTitle">Melden bij slechte luchtkwaliteit</string>    
+    <string id="aqiProviderTitle">AQI-provider</string>
+    <string id="ZerosInGraphTitle">Nulwaarden opnemen wanneer er geen gegevens zijn</string>
+    <string id="AirNow">EPA AirNow</string>
+    <string id="PurpleAir">Purple Air</string>
+    <string id="IQAir">IQAir</string>
+    <string id="AqiChartLabel">AQI</string>
+    <string id="AqiDataLabel">AQI (PM2.5)</string>
+    <string id="AqiUnitsLabel">PM2.5</string>
+    <string id="TemperatureChartLabel">Temperatuur</string>
+    <string id="TemperatureDataLabel">Graden</string>
+    <string id="TemperatureUnitsLabel">F</string>
+    <string id="EmailTitle">E-mailadres</string>
+    <string id="EmailPrompt">Uw e-mailadres</string>
+    <string id="Version">Version 1.24.2</string>
+    <string id="TemperatureAlways">Temperatuur weergeven ongeacht de veldgrootte</string>
+    <string id="PurpleAirCorrection">Corrigeer ruwe PurpleAir-gegevens met de US EPA-formule</string>
+</strings>
