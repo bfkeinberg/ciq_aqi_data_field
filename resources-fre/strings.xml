@@ -18,7 +18,7 @@
 	<string id="TemperatureUnitsLabel">F</string>
 	<string id="EmailTitle">Adresse e&#39;mail</string>
 	<string id="EmailPrompt">Votre adresse e&#39;mail</string>
-	<string id="Version">Version 1.24.1</string>
+	<string id="Version">Version 1.24.3</string>
 	<string id="TemperatureAlways">Afficher la température quel que soit la taille du champ</string>
 	<string id="PurpleAirCorrection">Corriger les données brutes PurpleAir en utilisant la formule de l&#39;EPA américaine</string>
 </strings>

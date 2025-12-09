@@ -19,7 +19,7 @@
     <string id="TemperatureUnitsLabel">F</string>
     <string id="EmailTitle">E-mailadres</string>
     <string id="EmailPrompt">Uw e-mailadres</string>
-    <string id="Version">Version 1.24.2</string>
+    <string id="Version">Version 1.24.3</string>
     <string id="TemperatureAlways">Temperatuur weergeven ongeacht de veldgrootte</string>
     <string id="PurpleAirCorrection">Corrigeer ruwe PurpleAir-gegevens met de US EPA-formule</string>
 </strings>
