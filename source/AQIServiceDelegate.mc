@@ -7,12 +7,14 @@ import Toybox.Lang;
 using Toybox.Time;
 
 (:background)
-class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
+class AQIServiceDelgate /*extends Toybox.System.ServiceDelegate*/ {
 
 		const minimumInterval = 5 * 60;
-			
-		function initialize() {
-	  		ServiceDelegate.initialize();
+        var callback as Method? = null;			
+
+		function initialize(cb as Method) {
+            callback = cb;
+	  		// ServiceDelegate.initialize();
 	  	}
 
 	function onTemporalEvent() {
@@ -44,11 +46,11 @@ class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
    // set up the response callback function
    function onReceive(responseCode as Lang.Number, data as Null or Lang.Dictionary or Lang.String) as Void {
        var aqi = null;
-       var interval = Application.Properties.getValue(intervalKey);
+    //    var interval = Application.Properties.getValue(intervalKey);
        if (responseCode == 200) {
            System.println("Request Successful " + data);           // print success
            if (data.isEmpty()) {
-        	   interval = minimumInterval;
+        	//    interval = minimumInterval;
     	   }	           	
            aqi = data;
        }
@@ -58,22 +60,23 @@ class AQIServiceDelgate extends Toybox.System.ServiceDelegate {
            if (data != null && !data.isEmpty()) {  
            	 System.println(data.keys());
            	 if (data.hasKey("retryAfter")) {
-           	 	interval = data.get("retryAfter");
+           	 	// interval = data.get("retryAfter");
        	 	 } else {
-       	 	 	interval = 60 * 40;
+       	 	 	// interval = 60 * 40;
    	 	 	 }
            } else {
-       	   	interval = 60 * 40;
+       	   	// interval = 60 * 40;
        	   }
        }
        else {
            System.println("Response: " + responseCode + " data " + data);
            aqi = { "error" => responseCode };
-           interval = minimumInterval;
+        //    interval = minimumInterval;
        }
        aqi.put( "provider", Application.Properties.getValue("aqiProvider"));
-	   Background.registerForTemporalEvent(new Time.Duration(interval));       
-       Background.exit(aqi);
+	//    Background.registerForTemporalEvent(new Time.Duration(interval));       
+    //    Background.exit(aqi);
+    (callback as Method).invoke(aqi);    
    }
 
     function makeRequest(latitude, longitude) {

@@ -6,7 +6,7 @@ using Toybox.WatchUi;
 using Toybox.FitContributor;
 import Toybox.Lang;
 using Toybox.Position;
-using KPayApp.KPay as KPay;
+using KPayClock.KPay as KPay;
 
 var aqiData = null;
 var aqiField = null;
@@ -68,24 +68,24 @@ class AQI_DataFieldApp extends Application.AppBase {
 
     // onStop() is called when your application is exiting
     function onStop(state) {
-    	if(!inBackground) {
-    		Background.deleteTemporalEvent();
+    	// if(!inBackground) {
+    	// 	Background.deleteTemporalEvent();
+        // }		
+ 		if (kpay != null) {
+            kpay.onStop();
         }		
     }
 
     //! Return the initial view of your application here
     function getInitialView() {
     	var view;
-    	
-		try {
-	 		kpay = new KPay.Core(KPAY_CONFIG);
-		} catch (err) {
-			System.println("Crashed in Kiezel with " + err);
-		}
+
+		kpay = new KPay.Core(KPAY_CONFIG);
 
 		//register for temporal events if they are supported
     	if(Toybox.System has :ServiceDelegate) {
-     		Background.registerForTemporalEvent(new Time.Duration(Application.Properties.getValue(intervalKey)));
+     		// Background.registerForTemporalEvent(new Time.Duration(Application.Properties.getValue(intervalKey)));
+			Background.registerForTemporalEvent((kpay as KPay.Core).updateFrequency as Time.Duration);
     	} else {
     		System.println("****background not available on this device****");
     	}
@@ -96,10 +96,11 @@ class AQI_DataFieldApp extends Application.AppBase {
     function getServiceDelegate(){
     	//only called in the background	
     	inBackground = true;
-        return [new AQIServiceDelgate()];
+        // return [new AQIServiceDelgate()];
+		return [ new KPay.KPayBackgroundServiceDelegate(AQIServiceDelgate, Application.Properties.getValue(intervalKey)) ];
     }
     
-    function onBackgroundData(data_raw as Application.PersistableType) {
+    function useBackgroundData(data_raw as Application.PersistableType) {
     	var now=System.getClockTime();
     	var ts=now.hour+":"+now.min.format("%02d");
         System.println("onBackgroundData=" + data_raw + " at " + ts);
@@ -160,5 +161,20 @@ class AQI_DataFieldApp extends Application.AppBase {
     		}
     	}
     }     
+
+	function onBackgroundData(data) {
+		if (kpay != null) {
+            // pass along the background data to the KiezelPay code.
+            kpay.onBackgroundData(data as Dictionary);
+    
+            // in case you also have your own Background functionality, you can access any non-KiezelPay data as shown below
+            // if you don't need any Background functionality yourself, you don't need the code below
+            var response = (data as Dictionary)[(kpay as KPay.Core).extraResponseKey] as String or Number or Dictionary or Array or Null;
+            if (response != null) {
+                // handle your background response
+                useBackgroundData(response);
+            }
+        }
+	}
 
 }
